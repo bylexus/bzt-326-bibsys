@@ -3,17 +3,11 @@ package frontend.controller.admin;
 import java.util.List;
 
 import org.hibernate.Session;
-import org.hibernate.Transaction;
-import org.hibernate.transform.Transformers;
 
 import business.entity.Benutzer;
 import frontend.ProgramManager;
 import frontend.controller.ConsoleViewController;
-import frontend.controller.admin.AdminMenuViewController;
-import frontend.controller.user.AusleiheListViewController;
 import frontend.view.admin.BenutzerListeView;
-import frontend.view.login.LoginView;
-import javassist.convert.Transformer;
 import persistence.DBH;
 
 public class BenutzerListeViewController extends ConsoleViewController<BenutzerListeView> {
