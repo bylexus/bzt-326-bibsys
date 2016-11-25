@@ -1,0 +1,4 @@
+/bin/
+/app.log
+/database/bibsys.*
+/src/log4j2.out.xml
