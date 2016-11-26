@@ -33,10 +33,12 @@
 
         <!-- Drop and re-create the database schema on startup -->
         <!-- <property name="hbm2ddl.auto">create</property> -->
+        <property name="hbm2ddl.auto">update</property>
 
         <!-- Names the annotated entity class -->
         <mapping class="business.entity.Benutzer"/>
-
+        <mapping class="business.entity.Medium"/>
+        <mapping class="business.entity.Buch"/>
     </session-factory>
 
 </hibernate-configuration>

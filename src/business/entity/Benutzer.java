@@ -1,18 +1,13 @@
 package business.entity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import java.util.List;
+
+import javax.persistence.*;
 
 @Entity
 @Table (name="benutzer")
 public class Benutzer {
 	
-	@Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
 	private String login;
@@ -21,11 +16,12 @@ public class Benutzer {
 	private String email;
 	private String passwort;
 	boolean admin = false;
-	
-	@Column (name="bib_ma")
 	boolean bibMA = false;
 	
+	List<Medium> ausgelieheneMedien;
 	
+	@Id
+    @GeneratedValue(strategy = GenerationType.AUTO)	
 	public Long getId() {
 		return id;
 	}
@@ -64,16 +60,29 @@ public class Benutzer {
 	public void setPasswort(String passwort) {
 		this.passwort = passwort;
 	}
+	
+	@Column (name="admin")
 	public boolean isAdmin() {
 		return admin;
 	}
 	public void setAdmin(boolean admin) {
 		this.admin = admin;
 	}
+	
+	@Column (name="bib_ma")
 	public boolean isBibMA() {
 		return bibMA;
 	}
+	
 	public void setBibMA(boolean bibMA) {
 		this.bibMA = bibMA;
+	}
+	
+	@OneToMany(mappedBy="ausgeliehenVon")
+	public List<Medium> getAusgelieheneMedien() {
+		return ausgelieheneMedien;
+	}
+	public void setAusgelieheneMedien(List<Medium> ausgelieheneMedien) {
+		this.ausgelieheneMedien = ausgelieheneMedien;
 	}	
 }

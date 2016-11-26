@@ -9,6 +9,8 @@ import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 
 import business.entity.Benutzer;
+import business.entity.Buch;
+import business.entity.Medium;
 
 
 public class HelloHibernate {
@@ -39,10 +41,41 @@ public class HelloHibernate {
 			System.out.println( "Benutzer (" + benutzer.getLogin() + ") : " + benutzer.getId() );
 		}
 		System.out.println("Output done");
+		
+		/*Buch b1 = new Buch();
+		b1.setTitel("Ender's Game");
+		b1.setIsbn("1232349234234");
+		
+		
+		Benutzer ben1 = new Benutzer();
+		ben1.setLogin("fooo");
+		session.persist(ben1);
+		
+		b1.setAusgeliehenVon(ben1);
+		session.persist(b1);
+		*/
+		
+		Benutzer ben6 = session.load(Benutzer.class, 6L);
+		
         session.getTransaction().commit();
         System.out.println("Transaction commited");
         session.close();
         System.out.println("Session closed");
+
+        session = sessionFactory.openSession();
+        session.beginTransaction();
+        session.update(ben6);
+        for (Medium m : ben6.getAusgelieheneMedien()) {
+        	System.out.println("Medium: "+m.getId()+":"+m.getTitel());
+        	m.setAusgeliehenVon(null);
+        }
+        
+        session.delete(ben6);
+        session.getTransaction().commit();
+        session.close();
+        
+        
+        
         sessionFactory.close();
 	}
 }

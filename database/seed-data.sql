@@ -1,6 +1,6 @@
 INSERT INTO benutzer
-(login, vorname, nachname, email,admin,bib_ma)
+(id,login, vorname, nachname, email,admin,bib_ma)
 VALUES
-('alex','Alexander','Schenkel','alex@alexi.ch',false,false),
-('ma','Bib','MA','ma@bibsys.ch',false,true),
-('admin','Admin','Admin','admin@bibsys.ch',true,false);
+(NEXT VALUE FOR hibernate_sequence,'alex','Alexander','Schenkel','alex@alexi.ch',false,false),
+(NEXT VALUE FOR hibernate_sequence,'ma','Bib','MA','ma@bibsys.ch',false,true),
+(NEXT VALUE FOR hibernate_sequence,'admin','Admin','Admin','admin@bibsys.ch',true,false);
