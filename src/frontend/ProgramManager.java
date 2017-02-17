@@ -1,22 +1,20 @@
 package frontend;
 
 import java.util.Stack;
-
 import business.entity.Benutzer;
-import frontend.controller.IViewController;
 import persistence.DBH;
 
 public class ProgramManager {
 	private static ProgramManager _inst;
 	
 	
-	Stack<IViewController<?>> controlStack;
-	IViewController<?> currentController = null;
+	Stack<View> viewStack;
+	View currentView = null;
 	
 	Benutzer benutzer = null;
 	
 	private ProgramManager() {
-		controlStack = new Stack<>();
+		viewStack = new Stack<>();
 	}
 	
 	public static ProgramManager getInstance() {
@@ -26,29 +24,31 @@ public class ProgramManager {
 			return ProgramManager._inst;
 	}
 	
-	public void addNext(IViewController<?> ctrl) {
-		controlStack.push(ctrl);
+	public void addNext(View view) {
+		viewStack.push(view);
 	}
 	
-	public IViewController<?> getCurrent() {
-		return this.currentController;
+	public View getCurrentView() {
+		return this.currentView;
 	}
 	
-	public void startCurrent() {
-		while (!controlStack.isEmpty()) {
-			currentController = controlStack.peek();
-			currentController.showView();
-			if (currentController != controlStack.peek()) {
-				startCurrent();
+	public void startCurrentView() {
+		while (!viewStack.isEmpty()) {
+			currentView = viewStack.peek();
+			currentView.show();
+			if (currentView != viewStack.peek()) {
+				startCurrentView();
 			} else {
-				controlStack.pop();
+				popCurrentView();
 			}
 		}
 		shutdown();
 	}
 	
-	public IViewController<?> popCurrent() {
-		return controlStack.pop();
+	public View popCurrentView() {
+		View v = viewStack.pop(); 
+		v.dispose();
+		return v;
 	}
 
 	public Benutzer getBenutzer() {

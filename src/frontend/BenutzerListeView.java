@@ -1,9 +1,8 @@
-package frontend.view.admin;
+package frontend;
 
 import java.util.List;
 
 import business.entity.Benutzer;
-import frontend.view.ConsoleView;
 
 public class BenutzerListeView extends ConsoleView {
 	private String menuSelection = "";
@@ -13,6 +12,7 @@ public class BenutzerListeView extends ConsoleView {
 	
 	public BenutzerListeView(Benutzer b) {
 		this.benutzer = b;
+		this.setController(new BenutzerListeViewController(this));
 	}
 	
 	public String getMenuSelection() {
@@ -32,7 +32,8 @@ public class BenutzerListeView extends ConsoleView {
 	}
 	
 	@Override
-	public void printView() {
+	public void displayView() {
+		clearScreen();
 		selectedBenutzer = null;
 		if (benutzer.isAdmin() != true) return;
 		if (getBenutzerListe() == null) return;

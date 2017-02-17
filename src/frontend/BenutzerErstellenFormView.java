@@ -1,7 +1,6 @@
-package frontend.view.admin;
+package frontend;
 
 import business.entity.Benutzer;
-import frontend.view.ConsoleView;
 
 public class BenutzerErstellenFormView extends ConsoleView {
 	private Benutzer benutzer;
@@ -12,11 +11,13 @@ public class BenutzerErstellenFormView extends ConsoleView {
 	
 	public BenutzerErstellenFormView(Benutzer b) {
 		this.benutzer = b;
+		this.setController(new BenutzerErstellenFormViewController(this));
 	}
 	
 	
 	@Override
-	public void printView() {
+	public void displayView() {
+		clearScreen();
 		if (benutzer.isAdmin() != true) return;
 		
 		out("Neuen Benutzer erstellen");

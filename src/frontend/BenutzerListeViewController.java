@@ -1,42 +1,39 @@
-package frontend.controller.admin;
+package frontend;
 
 import java.util.List;
 
 import org.hibernate.Session;
 
 import business.entity.Benutzer;
-import frontend.ProgramManager;
-import frontend.controller.ConsoleViewController;
-import frontend.view.admin.BenutzerListeView;
 import persistence.DBH;
 
-public class BenutzerListeViewController extends ConsoleViewController<BenutzerListeView> {
+public class BenutzerListeViewController extends ViewController {
 	private List<Benutzer> userList;
 	
-	public BenutzerListeViewController() {
-		this.setView(new BenutzerListeView(ProgramManager.getInstance().getBenutzer()));
+	public BenutzerListeViewController(BenutzerListeView view) {
+		super(view);
 	}
 	
 	@Override
-	protected void beforeViewShow() {
+	public void beforeViewShow() {
 		userList = loadBenutzerListe();
-		BenutzerListeView v = this.getView();
+		BenutzerListeView v = (BenutzerListeView)this.getView();
 		v.setBenutzerListe(userList);
 	};
 	
 	@Override
-	protected void afterViewShow() {
-		BenutzerListeView view = this.getView();
+	public void afterViewShow() {
+		BenutzerListeView view = (BenutzerListeView)this.getView();
 		switch (view.getMenuSelection()) {
 		case "n":
 			// Neuen Benutzer erstellen:
-			ProgramManager.getInstance().addNext(new BenutzerErstellenFormViewController());
+			ProgramManager.getInstance().addNext(new BenutzerErstellenFormView(ProgramManager.getInstance().getBenutzer()));
 			 break;
 		case "0": break;
 		default:
 			// ausgewaehlten Benutzer holen, Form-controller starten:
 			Benutzer editBenutzer = view.getSelectedBenutzer();
-			ProgramManager.getInstance().addNext(new BenutzerFormViewController(editBenutzer));
+			ProgramManager.getInstance().addNext(new BenutzerFormView(ProgramManager.getInstance().getBenutzer(),editBenutzer));
 			break;
 		}
 	}

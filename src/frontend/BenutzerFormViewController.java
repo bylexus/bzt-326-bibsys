@@ -1,4 +1,4 @@
-package frontend.controller.admin;
+package frontend;
 
 import java.util.Observable;
 import java.util.Observer;
@@ -7,23 +7,18 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 import business.entity.Benutzer;
-import frontend.ProgramManager;
-import frontend.controller.ConsoleViewController;
-import frontend.view.admin.BenutzerFormView;
 import persistence.DBH;
 
-public class BenutzerFormViewController extends ConsoleViewController<BenutzerFormView> implements Observer {
+public class BenutzerFormViewController extends ViewController {
 	
-	public BenutzerFormViewController(Benutzer editBenutzer) {
-		BenutzerFormView v = new BenutzerFormView(ProgramManager.getInstance().getBenutzer());
-		v.addObserver(this);
-		v.setEditBenutzer(editBenutzer);
-		this.setView(v);
+	public BenutzerFormViewController(BenutzerFormView view) {
+		super(view);
 	}
 	
 	
 	@Override
-	protected void afterViewShow() {
+	public void afterViewShow() {
+		BenutzerFormView view = (BenutzerFormView)this.getView(); 
 		switch (view.getMenuSelection()) {
 		case "d": break;
 			
@@ -32,18 +27,20 @@ public class BenutzerFormViewController extends ConsoleViewController<BenutzerFo
 			
 			break;
 		}
-		view.deleteObserver(this);
 	}
 
 	@Override
 	public void update(Observable o, Object event) {
+		BenutzerFormView view = (BenutzerFormView)this.getView();
+		
+		super.update(o, event);
 		if (o == this.getView()) {
 			if (event == BenutzerFormView.ACTION.SAVE) {
-				storeBenutzer(this.getView().getEditBenutzer());
+				storeBenutzer(view.getEditBenutzer());
 			}
 			if (event == BenutzerFormView.ACTION.DELETE) {
-				deleteBenutzer(this.getView().getEditBenutzer());
-				this.getView().setEditBenutzer(null);
+				deleteBenutzer(view.getEditBenutzer());
+				view.setEditBenutzer(null);
 			}
 		}
 	}

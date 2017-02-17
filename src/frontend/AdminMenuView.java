@@ -1,9 +1,8 @@
-package frontend.view.admin;
+package frontend;
 
 import java.util.Arrays;
 
 import business.entity.Benutzer;
-import frontend.view.ConsoleView;
 
 public class AdminMenuView extends ConsoleView {
 	private String menuSelection = "";
@@ -11,6 +10,7 @@ public class AdminMenuView extends ConsoleView {
 	
 	public AdminMenuView(Benutzer b) {
 		this.benutzer = b;
+		this.setController(new AdminMenuViewController(this));
 	}
 	
 	public String getMenuSelection() {
@@ -18,7 +18,8 @@ public class AdminMenuView extends ConsoleView {
 	}
 	
 	@Override
-	public void printView() {
+	public void displayView() {
+		clearScreen();
 		String[] allowed = {"1","0"};
 		String input = "";
 		out("Hauptmenu - Willkommen, " + benutzer.getLogin());

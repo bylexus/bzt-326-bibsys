@@ -1,9 +1,8 @@
-package frontend.view.admin;
+package frontend;
 
 import java.util.Arrays;
 
 import business.entity.Benutzer;
-import frontend.view.ConsoleView;
 
 public class BenutzerFormView extends ConsoleView {
 	public static enum ACTION  {
@@ -16,8 +15,10 @@ public class BenutzerFormView extends ConsoleView {
 	
 	private boolean exit = false;
 	
-	public BenutzerFormView(Benutzer b) {
-		this.benutzer = b;
+	public BenutzerFormView(Benutzer benutzer, Benutzer editBenutzer) {
+		this.benutzer = benutzer;
+		this.editBenutzer = editBenutzer;
+		this.setController(new BenutzerFormViewController(this));
 	}
 	
 	public String getMenuSelection() {
@@ -34,7 +35,8 @@ public class BenutzerFormView extends ConsoleView {
 	
 	
 	@Override
-	public void printView() {
+	public void displayView() {
+		clearScreen();
 		if (benutzer.isAdmin() != true) return;
 		if (editBenutzer== null) return;
 		
