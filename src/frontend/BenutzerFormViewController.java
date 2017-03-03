@@ -1,11 +1,7 @@
 package frontend;
 
 import java.util.Observable;
-import java.util.Observer;
-
-import org.hibernate.Session;
-import org.hibernate.Transaction;
-
+import javax.persistence.EntityManager;
 import business.entity.Benutzer;
 import persistence.DBH;
 
@@ -46,19 +42,19 @@ public class BenutzerFormViewController extends ViewController {
 	}
 	
 	protected void storeBenutzer(Benutzer b) {
-		Session session = DBH.getInst().openSession();
-		Transaction t = session.beginTransaction();
-		session.update(b);
-		session.save(b);
-		t.commit();
+		EntityManager session = DBH.getInst().openSession();
+		session.getTransaction().begin();
+		b = session.merge(b);
+		session.persist(b);
+		session.getTransaction().commit();
 		session.close();
 	}
 	
 	protected void deleteBenutzer(Benutzer b) {
-		Session session = DBH.getInst().openSession();
-		Transaction t = session.beginTransaction();
-		session.delete(b);
-		t.commit();
+		EntityManager session = DBH.getInst().openSession();
+		session.getTransaction().begin();
+		session.remove(b);
+		session.getTransaction().commit();
 		session.close();
 	}
 }

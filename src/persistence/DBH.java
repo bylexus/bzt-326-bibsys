@@ -1,15 +1,13 @@
 package persistence;
 
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.boot.MetadataSources;
-import org.hibernate.boot.registry.StandardServiceRegistry;
-import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 
 public class DBH {
 	private static DBH _inst;
 	
-	private SessionFactory sessionFactory = null;
+	private EntityManagerFactory entityManagerFactory = null;
 	
 	public static DBH getInst() {
 		if (DBH._inst == null) {
@@ -22,38 +20,34 @@ public class DBH {
 	}
 	
 	private void initSessionFactory() {
-		// A SessionFactory is set up once for an application!
-		final StandardServiceRegistry registry = new StandardServiceRegistryBuilder()
-				.configure() // configures settings from hibernate.cfg.xml
-				.build();
 		try {
-			sessionFactory = new MetadataSources( registry ).buildMetadata().buildSessionFactory();
+			// A EntityManagerFactory is set up once for an application!
+			entityManagerFactory = Persistence.createEntityManagerFactory("BibSys");
 		}
 		catch (Exception e) {
-			// The registry would be destroyed by the SessionFactory, but we had trouble building the SessionFactory
-			// so destroy it manually.
-			StandardServiceRegistryBuilder.destroy( registry );
+			System.err.println("Oooops, DB Error!");
+			System.err.println(e.getMessage());
 		}
 	}
 	
-	public Session openSession() {
-		if (this.sessionFactory == null) {
+	public EntityManager openSession() {
+		if (this.entityManagerFactory == null) {
 			initSessionFactory();
 		}
-		return sessionFactory.openSession();
+		return entityManagerFactory.createEntityManager();
 	}
 
 	
 	public void shutdown() {
-		if (sessionFactory != null) {
-			sessionFactory.close();
-			sessionFactory = null;
+		if (entityManagerFactory != null) {
+			entityManagerFactory.close();
+			entityManagerFactory = null;
 		}
 	}
 	
 	public void finalize() {
-		if (sessionFactory != null) {
-			sessionFactory.close();
+		if (entityManagerFactory != null) {
+			entityManagerFactory.close();
 		}
 	}
 }

@@ -1,7 +1,6 @@
 package frontend;
 
-import org.hibernate.Session;
-import org.hibernate.Transaction;
+import javax.persistence.EntityManager;
 
 import business.entity.Benutzer;
 import persistence.DBH;
@@ -26,15 +25,15 @@ public class BenutzerErstellenFormViewController extends ViewController {
 	protected Benutzer createBenutzer() {
 		BenutzerErstellenFormView view = (BenutzerErstellenFormView)this.getView();
 		
-		Session session = DBH.getInst().openSession();
-		Transaction t = session.beginTransaction();
+		EntityManager session = DBH.getInst().openSession();
+		session.getTransaction().begin();
 		Benutzer b = new Benutzer();
 		b.setLogin(view.login);
 		b.setVorname(view.vorname);
 		b.setNachname(view.nachname);
 		b.setEmail(view.email);
-		session.save(b);
-		t.commit();
+		session.persist(b);
+		session.getTransaction().commit();
 		session.close();
 		return b;
 	}

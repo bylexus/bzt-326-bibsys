@@ -1,0 +1,51 @@
+<?xml version='1.0' encoding='utf-8'?>
+<persistence xmlns="http://xmlns.jcp.org/xml/ns/persistence"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence
+             http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd"
+             version="2.1">
+             
+<persistence-unit name="BibSys">
+        <description>
+            Persistence unit for the BibSys prototype
+        </description>
+        
+        <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+        
+        <!-- Names the annotated entity class -->
+        <class>business.entity.Benutzer</class>
+        <class>business.entity.Medium</class>
+        <class>business.entity.Buch</class>
+        
+        
+        
+        <properties>
+            <property name="javax.persistence.jdbc.driver"
+                      value="org.hsqldb.jdbc.JDBCDriver" />
+                      
+            <property name="hibernate.dialect" value="org.hibernate.dialect.HSQLDialect" />
+            
+            <!-- JDBC connection pool (use the built-in) -->
+        	<property name="hibernate.connection.pool_size" value="1" />
+        	
+        	<!-- Disable the second-level cache  -->
+        	<property name="hibernate.cache.provider_class" value="org.hibernate.cache.internal.NoCacheProvider" />
+
+            <property name="javax.persistence.jdbc.url"
+                      value="jdbc:hsqldb:file:database/bibsys" />
+
+            <property name="javax.persistence.jdbc.user"
+                      value="sa" />
+
+            <property name="javax.persistence.jdbc.password"
+                      value="" />
+
+			<!-- Echo all executed SQL to stdout -->
+            <property name="hibernate.show_sql"
+                      value="false" />
+
+            <property name="hibernate.hbm2ddl.auto"
+                      value="update" />
+        </properties>
+</persistence-unit>
+</persistence>

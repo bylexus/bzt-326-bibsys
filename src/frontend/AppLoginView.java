@@ -1,7 +1,7 @@
 package frontend;
 
 import java.security.MessageDigest;
-import org.hibernate.Session;
+import javax.persistence.EntityManager;
 import business.entity.Benutzer;
 import persistence.DBH;
 
@@ -42,11 +42,11 @@ public class AppLoginView extends ConsoleView {
 	
 	protected Benutzer loadBenutzer(String login, String pw) {
 		Benutzer b = null;
-		Session session = DBH.getInst().openSession();
+		EntityManager session = DBH.getInst().openSession();
 		
 		try {
-			b = (Benutzer)session
-					.createQuery("from Benutzer where login = :login and passwort = :pw")
+			b = session
+					.createQuery("from Benutzer where login = :login and passwort = :pw", Benutzer.class)
 					.setParameter("login", login)
 					.setParameter("pw", sha256(pw))
 					.getSingleResult();

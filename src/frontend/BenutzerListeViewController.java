@@ -1,9 +1,7 @@
 package frontend;
 
 import java.util.List;
-
-import org.hibernate.Session;
-
+import javax.persistence.EntityManager;
 import business.entity.Benutzer;
 import persistence.DBH;
 
@@ -39,8 +37,8 @@ public class BenutzerListeViewController extends ViewController {
 	}
 	
 	protected List<Benutzer> loadBenutzerListe() {
-		Session session = DBH.getInst().openSession();
-		List<Benutzer> userList = (List<Benutzer>)session.createQuery("from Benutzer order by id").getResultList();
+		EntityManager session = DBH.getInst().openSession();
+		List<Benutzer> userList = session.createQuery("from Benutzer order by id",Benutzer.class).getResultList();
 		session.close();
 		return userList;
 	}
