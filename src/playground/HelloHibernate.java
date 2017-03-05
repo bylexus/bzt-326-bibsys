@@ -1,13 +1,12 @@
 package playground;
 
 import java.util.List;
-
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
-
 import business.entity.Benutzer;
 import business.entity.Buch;
+import business.entity.Medium;
 
 
 public class HelloHibernate {
@@ -39,7 +38,7 @@ public class HelloHibernate {
 		b1.setIsbn("1232349234234");
 		
 		
-		Benutzer ben1 = session.find(Benutzer.class, 6L);
+		Benutzer ben1 = session.find(Benutzer.class, 1L);
 		/*ben1.setLogin("fooo");
 		session.persist(ben1);*/
 		
@@ -50,6 +49,17 @@ public class HelloHibernate {
 		
         session.getTransaction().commit();
         System.out.println("Transaction commited");
+        
+        
+        List<Medium> ausgeliehen = ben1.getAusgelieheneMedien();
+        System.out.println("Ausgeliehene Medien von "+ben1.getLogin());
+        for (Medium m : ausgeliehen) {
+        	System.out.println(m.getId() + ": " +m.getTitel());
+        }
+        
+        
+        
+        
         session.close();
         System.out.println("Session closed");
         
@@ -64,7 +74,7 @@ public class HelloHibernate {
         
         
         session = sessionFactory.createEntityManager();
-        List<Buch> result2 = session.createQuery( "from Buch" ).getResultList();
+        List<Buch> result2 = session.createQuery( "from Buch",Buch.class ).getResultList();
 		for ( Buch buch : (List<Buch>) result2 ) {
 			System.out.println( "Bucg (" + buch.getTitel() + ") : " + buch.getId() );
 		}

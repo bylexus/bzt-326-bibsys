@@ -37,9 +37,8 @@ public class BenutzerListeViewController extends ViewController {
 	}
 	
 	protected List<Benutzer> loadBenutzerListe() {
-		EntityManager session = DBH.getInst().openSession();
-		List<Benutzer> userList = session.createQuery("from Benutzer order by id",Benutzer.class).getResultList();
-		session.close();
+		EntityManager em = DBH.getInst().getEntityManager();
+		List<Benutzer> userList = em.createQuery("from Benutzer order by id",Benutzer.class).getResultList();
 		return userList;
 	}
 }

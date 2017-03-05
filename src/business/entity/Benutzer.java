@@ -1,5 +1,6 @@
 package business.entity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.*;
@@ -18,7 +19,7 @@ public class Benutzer {
 	boolean admin = false;
 	boolean bibMA = false;
 	
-	List<Medium> ausgelieheneMedien;
+	List<Medium> ausgelieheneMedien = new ArrayList<>();
 	
 	@Id
     @GeneratedValue(strategy = GenerationType.AUTO)	
@@ -79,6 +80,7 @@ public class Benutzer {
 	}
 	
 	@OneToMany(mappedBy="ausgeliehenVon")
+	@OrderBy("titel")
 	public List<Medium> getAusgelieheneMedien() {
 		return ausgelieheneMedien;
 	}

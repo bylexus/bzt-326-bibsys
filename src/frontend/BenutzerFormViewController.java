@@ -42,19 +42,16 @@ public class BenutzerFormViewController extends ViewController {
 	}
 	
 	protected void storeBenutzer(Benutzer b) {
-		EntityManager session = DBH.getInst().openSession();
-		session.getTransaction().begin();
-		b = session.merge(b);
-		session.persist(b);
-		session.getTransaction().commit();
-		session.close();
+		EntityManager em = DBH.getInst().getEntityManager();
+		em.getTransaction().begin();
+		em.persist(b);
+		em.getTransaction().commit();
 	}
 	
 	protected void deleteBenutzer(Benutzer b) {
-		EntityManager session = DBH.getInst().openSession();
-		session.getTransaction().begin();
-		session.remove(b);
-		session.getTransaction().commit();
-		session.close();
+		EntityManager em = DBH.getInst().getEntityManager();
+		em.getTransaction().begin();
+		em.remove(b);
+		em.getTransaction().commit();
 	}
 }

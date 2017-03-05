@@ -42,17 +42,16 @@ public class AppLoginView extends ConsoleView {
 	
 	protected Benutzer loadBenutzer(String login, String pw) {
 		Benutzer b = null;
-		EntityManager session = DBH.getInst().openSession();
+		EntityManager em = DBH.getInst().getEntityManager();
 		
 		try {
-			b = session
+			b = em
 					.createQuery("from Benutzer where login = :login and passwort = :pw", Benutzer.class)
 					.setParameter("login", login)
 					.setParameter("pw", sha256(pw))
 					.getSingleResult();
 		} catch(Exception e) {
 		}
-		session.close();
 		return b;
 		
 	}

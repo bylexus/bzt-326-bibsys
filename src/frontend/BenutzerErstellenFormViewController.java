@@ -25,16 +25,15 @@ public class BenutzerErstellenFormViewController extends ViewController {
 	protected Benutzer createBenutzer() {
 		BenutzerErstellenFormView view = (BenutzerErstellenFormView)this.getView();
 		
-		EntityManager session = DBH.getInst().openSession();
-		session.getTransaction().begin();
+		EntityManager em = DBH.getInst().getEntityManager();
+		em.getTransaction().begin();
 		Benutzer b = new Benutzer();
 		b.setLogin(view.login);
 		b.setVorname(view.vorname);
 		b.setNachname(view.nachname);
 		b.setEmail(view.email);
-		session.persist(b);
-		session.getTransaction().commit();
-		session.close();
+		em.persist(b);
+		em.getTransaction().commit();
 		return b;
 	}
 }

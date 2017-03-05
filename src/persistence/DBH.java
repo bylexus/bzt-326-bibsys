@@ -8,6 +8,7 @@ public class DBH {
 	private static DBH _inst;
 	
 	private EntityManagerFactory entityManagerFactory = null;
+	private EntityManager em = null;
 	
 	public static DBH getInst() {
 		if (DBH._inst == null) {
@@ -30,15 +31,22 @@ public class DBH {
 		}
 	}
 	
-	public EntityManager openSession() {
+	public EntityManager getEntityManager() {
 		if (this.entityManagerFactory == null) {
 			initSessionFactory();
 		}
-		return entityManagerFactory.createEntityManager();
+		if (this.em == null) {
+			this.em = entityManagerFactory.createEntityManager(); 
+		}
+		return em;
 	}
 
 	
 	public void shutdown() {
+		if (em != null) {
+			em.close();
+			em = null;
+		}
 		if (entityManagerFactory != null) {
 			entityManagerFactory.close();
 			entityManagerFactory = null;
