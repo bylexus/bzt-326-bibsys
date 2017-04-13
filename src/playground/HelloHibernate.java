@@ -42,21 +42,13 @@ public class HelloHibernate {
 		/*ben1.setLogin("fooo");
 		session.persist(ben1);*/
 		
-		b1.setAusgeliehenVon(ben1);
+		//b1.setAusgeliehenVon(ben1);
 		session.persist(b1);
 		
 		/*Benutzer ben6 = session.find(Benutzer.class, 6L);*/
 		
         session.getTransaction().commit();
         System.out.println("Transaction commited");
-        
-        
-        List<Medium> ausgeliehen = ben1.getAusgelieheneMedien();
-        System.out.println("Ausgeliehene Medien von "+ben1.getLogin());
-        for (Medium m : ausgeliehen) {
-        	System.out.println(m.getId() + ": " +m.getTitel());
-        }
-        
         
         
         

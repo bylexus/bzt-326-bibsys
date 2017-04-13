@@ -27,7 +27,10 @@ public class DBH {
 		}
 		catch (Exception e) {
 			System.err.println("Oooops, DB Error!");
-			System.err.println(e.getMessage());
+			for (StackTraceElement s : e.getStackTrace()) {
+				System.err.println(s.toString());
+			}
+			
 		}
 	}
 	

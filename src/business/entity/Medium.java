@@ -1,5 +1,8 @@
 package business.entity;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.*;
 
 @Entity
@@ -7,12 +10,20 @@ import javax.persistence.*;
 @Inheritance(strategy=InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(discriminatorType=DiscriminatorType.STRING, name="typ")
 abstract public class Medium {
-	private Long id;
-	private String titel;
-	private Benutzer ausgeliehenVon;
-	
 	@Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+	private Long id;
+	
+	@ManyToMany
+	@JoinTable(
+			name="medium_kategorie",
+			joinColumns=@JoinColumn(name="medium_id", referencedColumnName="id"),
+			inverseJoinColumns=@JoinColumn(name="kategorie_id", referencedColumnName="id")
+    )
+	private List<Kategorie> kategorien = new ArrayList<>();
+	
+	private String titel;
+	
 	public Long getId() {
 		return id;
 	}
@@ -25,13 +36,10 @@ abstract public class Medium {
 	public void setTitel(String titel) {
 		this.titel = titel;
 	}
-	
-	@ManyToOne(cascade={CascadeType.PERSIST, CascadeType.MERGE})
-	@JoinColumn(name="ausgeliehen_benutzer_id")
-	public Benutzer getAusgeliehenVon() {
-		return ausgeliehenVon;
+	public List<Kategorie> getKategorien() {
+		return kategorien;
 	}
-	public void setAusgeliehenVon(Benutzer ausgeliehenVon) {
-		this.ausgeliehenVon = ausgeliehenVon;
+	public void setKategorien(List<Kategorie> kategorien) {
+		this.kategorien = kategorien;
 	}
 }

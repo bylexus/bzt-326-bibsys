@@ -1,14 +1,22 @@
 package business.entity;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
 
 @Entity
 @Table (name="benutzer")
 public class Benutzer {
-	
+	@Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	
 	private String login;
@@ -16,13 +24,20 @@ public class Benutzer {
 	private String nachname;
 	private String email;
 	private String passwort;
-	boolean admin = false;
-	boolean bibMA = false;
+	private boolean admin = false;
 	
-	List<Medium> ausgelieheneMedien = new ArrayList<>();
+	@Column (name="bib_ma")
+	private boolean bibMA = false;
 	
-	@Id
-    @GeneratedValue(strategy = GenerationType.AUTO)	
+	@ManyToOne(fetch=FetchType.EAGER)
+	@JoinColumn(name="person_id")
+	private Person person;
+	
+	@OneToOne(fetch=FetchType.EAGER,cascade=CascadeType.ALL)
+	@JoinColumn(name="ausweis_id")
+	private Ausweis ausweis;
+	
+		
 	public Long getId() {
 		return id;
 	}
@@ -62,7 +77,7 @@ public class Benutzer {
 		this.passwort = passwort;
 	}
 	
-	@Column (name="admin")
+	
 	public boolean isAdmin() {
 		return admin;
 	}
@@ -70,7 +85,7 @@ public class Benutzer {
 		this.admin = admin;
 	}
 	
-	@Column (name="bib_ma")
+	
 	public boolean isBibMA() {
 		return bibMA;
 	}
@@ -79,12 +94,18 @@ public class Benutzer {
 		this.bibMA = bibMA;
 	}
 	
-	@OneToMany(mappedBy="ausgeliehenVon")
-	@OrderBy("titel")
-	public List<Medium> getAusgelieheneMedien() {
-		return ausgelieheneMedien;
+	
+	public Person getPerson() {
+		return person;
 	}
-	public void setAusgelieheneMedien(List<Medium> ausgelieheneMedien) {
-		this.ausgelieheneMedien = ausgelieheneMedien;
-	}	
+	public void setPerson(Person person) {
+		this.person = person;
+	}
+	public Ausweis getAusweis() {
+		return ausweis;
+	}
+	public void setAusweis(Ausweis ausweis) {
+		this.ausweis = ausweis;
+	}
+	
 }
