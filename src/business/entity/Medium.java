@@ -39,7 +39,18 @@ abstract public class Medium {
 	public List<Kategorie> getKategorien() {
 		return kategorien;
 	}
-	public void setKategorien(List<Kategorie> kategorien) {
-		this.kategorien = kategorien;
+	
+	public void addKategorie(Kategorie k) {
+		if (!this.getKategorien().contains(k)) {
+			this.getKategorien().add(k);
+			k.addMedium(this);
+		}
+	}
+	
+	public void removeKategorie(Kategorie k) {
+		if (this.getKategorien().contains(this)) {
+			k.removeMedium(this);
+			this.getKategorien().remove(k);	
+		}
 	}
 }

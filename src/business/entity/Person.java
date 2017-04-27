@@ -30,6 +30,9 @@ public class Person {
 	@OneToMany(mappedBy="person",fetch=FetchType.LAZY, cascade=CascadeType.ALL)
 	private List<Benutzer> benutzer = new ArrayList<>();
 	
+	@OneToMany(mappedBy="person",fetch=FetchType.LAZY, cascade=CascadeType.ALL)
+	private List<MediumExemplar> ausleihen = new ArrayList<>();
+	
 	public Long getId() {
 		return id;
 	}
@@ -77,5 +80,25 @@ public class Person {
 	}
 	public void setBenutzer(List<Benutzer> benutzer) {
 		this.benutzer = benutzer;
+	}
+	
+	public List<MediumExemplar> getAusleihen() {
+		return this.ausleihen;
+	}
+	
+	public void leiheAus(MediumExemplar m) {
+		if (m.getPerson() != this) {
+			m.setPerson(this);
+			m.setAusgeliehenAm(new Date());
+			this.getAusleihen().add(m);
+		}
+	}
+	
+	public void gibZurueck(MediumExemplar m) {
+		if (m.getPerson() == this && m.getAusgeliehenAm() != null) {
+			m.setPerson(null);
+			m.setAusgeliehenAm(null);
+			this.getAusleihen().remove(m);
+		}
 	}
 }

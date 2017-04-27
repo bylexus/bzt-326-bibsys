@@ -2,6 +2,7 @@ package business;
 
 import frontend.AppLoginView;
 import frontend.ProgramManager;
+import frontend.TerminalLoginView;
 import frontend.View;
 
 public class Main {
@@ -24,7 +25,7 @@ public class Main {
 			view = new AppLoginView();
 			break;
 		case TERMINAL:
-			// TODO
+			view = new TerminalLoginView();
 		}
 		if (view != null) {
 			// Start der ersten View:

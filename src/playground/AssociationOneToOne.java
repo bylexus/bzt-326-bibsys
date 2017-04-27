@@ -1,13 +1,8 @@
 package playground;
 
-import java.util.Calendar;
-
 import javax.persistence.EntityManager;
-import javax.persistence.NoResultException;
-
 import business.entity.Ausweis;
 import business.entity.Benutzer;
-import business.entity.Person;
 import frontend.ProgramManager;
 import persistence.DBH;
 
@@ -35,7 +30,6 @@ public class AssociationOneToOne {
 		b = em.createQuery("from Benutzer where login = :login", Benutzer.class).setParameter("login", "alex").getSingleResult();
 		a = b.getAusweis();
 		System.out.println("Ausweis: "+a.getId()+": "+a.getNummer());
-		
 		
 		ProgramManager.getInstance().shutdown();
 	}

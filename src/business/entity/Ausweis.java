@@ -19,7 +19,7 @@ public class Ausweis {
 	@Column(name="austestellt_am")
 	
 	private Date ausgestelltAm;
-	
+	@Column(unique=true)
 	private String nummer;
 	
 	
