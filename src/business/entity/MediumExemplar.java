@@ -24,6 +24,10 @@ public class MediumExemplar {
 	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="person_id")
 	private Person person;
+	
+	@ManyToOne(fetch=FetchType.EAGER)
+	@JoinColumn(name="medium_id")
+	private Medium medium;
 
 	public Long getId() {
 		return id;
@@ -55,5 +59,13 @@ public class MediumExemplar {
 
 	public void setPerson(Person person) {
 		this.person = person;
+	}
+
+	public Medium getMedium() {
+		return medium;
+	}
+
+	public void setMedium(Medium medium) {
+		this.medium = medium;
 	}
 }

@@ -46,7 +46,7 @@ public class TerminalLoginViewController extends ViewController {
 	@Override
 	public void afterViewShow() {
 		ProgramManager.getInstance().setBenutzer(loggedInUser);
-		ProgramManager.getInstance().addNext(new RoleSelectView(loggedInUser));
+		ProgramManager.getInstance().addNext(new TerminalAusleiheView(loggedInUser));
 	}
 	
 	public Benutzer getLoggedInUser() {
