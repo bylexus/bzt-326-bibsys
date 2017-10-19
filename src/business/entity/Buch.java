@@ -1,9 +1,10 @@
 package business.entity;
 
-import javax.persistence.*;
+import java.io.Serializable;
 
-@Entity
-public class Buch extends Medium {
+public class Buch extends Medium implements Serializable{
+	private static final long serialVersionUID = 2638816301465844779L;
+
 	public static int ausleihTage = 30;
 	
 	private String isbn;
@@ -18,7 +19,6 @@ public class Buch extends Medium {
 		this.isbn = isbn;
 	}
 	
-	@Embedded()
 	public Autor getAutor() {
 		return autor;
 	}

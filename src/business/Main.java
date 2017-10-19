@@ -31,7 +31,6 @@ public class Main {
 			ProgramManager pm = ProgramManager.getInstance();
 			pm.addNext(view);
 			pm.startCurrentView();
-
 		}
 	}
 }

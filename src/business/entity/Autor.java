@@ -1,15 +1,14 @@
 package business.entity;
 
-import javax.persistence.Column;
-import javax.persistence.Embeddable;
+import java.io.Serializable;
 
-@Embeddable
-public class Autor {
+public class Autor implements Serializable{
+	private static final long serialVersionUID = -2417465929359572604L;
+	
 	private String nachname;
 	private String vorname;
 	
 	
-	@Column(name="autor_nachname")
 	public String getNachname() {
 		return nachname;
 	}
@@ -17,7 +16,6 @@ public class Autor {
 		this.nachname = nachname;
 	}
 	
-	@Column(name="autor_vorname")
 	public String getVorname() {
 		return vorname;
 	}

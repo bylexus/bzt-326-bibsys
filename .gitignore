@@ -3,3 +3,4 @@
 /database/bibsys.*
 /src/log4j2.out.xml
 /src/hibernate.cfg.out.xml
+serialized.data

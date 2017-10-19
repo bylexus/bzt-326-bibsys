@@ -3,7 +3,7 @@ Beispielprojekt "Bibliothekssystem" für das Modul 326
 
 Ziel: Beispielhafte Implementation eines Bibliothekssystems aufgrund OO-Analys und -Design. Work in Progress.
 
-Dieses Repository ist ein Eclipse-Java-Projekt. Alle benötigten Libraries (log4j, hibernate, hsqldb) wurden der Einfachheit halber
+Dieses Repository ist ein Eclipse-Java-Projekt. Alle benötigten Libraries wurden der Einfachheit halber
 ins Repository aufgenommen. Besser wäre eine Maven-Lösung, dies ist an dieser Stelle aber nicht umgesetzt.
 
 Starten der Demo-Applikation
@@ -13,25 +13,15 @@ Starten der Demo-Applikation
 
 oder:
 
-`$ java -cp "lib/*:lib/hsqldb/lib/hsqldb.jar:lib/hibernate/*:bin/" business.Main`
+`$ java -cp "bin/" business.Main`
 
 
 Datenbank
 ---------
 
-Für das Beispielsystem wird eine hsqldb angelegt. Diese ist im Verzeichnis "database" als DB "bibsys" zu finden.
+Dieses Projekt verwendet KEINE Datenbank: Dies ist nicht das Ziel des Moduls, und die Einführung
+einer Datenbank / ORM / SQL wäre zu komplex.
 
-Für einen minimalen Satz an Daten kann nach dem ersten Start der Applikation (DB-Schema wird beim ersten Verbinden automatisch angelegt)
-das File `database/seed-data.sql` importiert werden.
-
-Start des hsqldb-Management-UIs:
-
-`$ ./dbManager.sh`
-
-oder:
-
-`java -cp lib/hsqldb/lib/hsqldb.jar org.hsqldb.util.DatabaseManagerSwing`
-
-
-
+Die Datenhaltung passiert ganz simpel in einem globalen DataContainer, und wird via Objektserialisierung
+beim Start geladen / beim Beenden gespeichert.
 

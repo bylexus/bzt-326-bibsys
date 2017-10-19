@@ -1,14 +1,12 @@
 package business.entity;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.*;
+public class Benutzer implements Serializable{
+	private static final long serialVersionUID = -3927525614383424503L;
 
-@Entity
-@Table (name="benutzer")
-public class Benutzer {
-	
 	private Long id;
 	
 	private String login;
@@ -21,8 +19,6 @@ public class Benutzer {
 	
 	List<Medium> ausgelieheneMedien = new ArrayList<>();
 	
-	@Id
-    @GeneratedValue(strategy = GenerationType.AUTO)	
 	public Long getId() {
 		return id;
 	}
@@ -62,7 +58,6 @@ public class Benutzer {
 		this.passwort = passwort;
 	}
 	
-	@Column (name="admin")
 	public boolean isAdmin() {
 		return admin;
 	}
@@ -70,7 +65,6 @@ public class Benutzer {
 		this.admin = admin;
 	}
 	
-	@Column (name="bib_ma")
 	public boolean isBibMA() {
 		return bibMA;
 	}
@@ -79,8 +73,6 @@ public class Benutzer {
 		this.bibMA = bibMA;
 	}
 	
-	@OneToMany(mappedBy="ausgeliehenVon")
-	@OrderBy("titel")
 	public List<Medium> getAusgelieheneMedien() {
 		return ausgelieheneMedien;
 	}

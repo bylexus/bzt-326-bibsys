@@ -1,5 +1,7 @@
 package frontend;
 
+import business.entity.Medium;
+
 public class AusleiheListView extends ConsoleView {
 	public AusleiheListView() {
 		this.setController(new AusleiheListViewController(this));
@@ -8,8 +10,11 @@ public class AusleiheListView extends ConsoleView {
 	@Override
 	public void displayView() {
 		clearScreen();
-		out("Ausleihen");
-		out("==========");
+		out("BIBSYS - "+this.controller.getLoggedInBenutzer().getLogin() + " - Ausgeliehene Medien");
+		out("==============================================================================\n");
+		for (Medium m : this.controller.getLoggedInBenutzer().getAusgelieheneMedien()) {
+			out(m.getId() + ": "+m.getTitel());
+		}
 		ask("?");
 	}
 }

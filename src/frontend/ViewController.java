@@ -3,6 +3,8 @@ package frontend;
 import java.util.Observable;
 import java.util.Observer;
 
+import business.entity.Benutzer;
+
 public class ViewController implements Observer {
 	protected View view;
 	
@@ -17,6 +19,10 @@ public class ViewController implements Observer {
 	public void setView(View view) {
 		this.view = view;
 		view.addObserver(this);
+	}
+	
+	public Benutzer getLoggedInBenutzer() {
+		return ProgramManager.getInstance().getBenutzer();
 	}
 	
 	@Override

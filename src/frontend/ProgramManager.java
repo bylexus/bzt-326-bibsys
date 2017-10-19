@@ -2,11 +2,10 @@ package frontend;
 
 import java.util.Stack;
 import business.entity.Benutzer;
-import persistence.DBH;
+import persistence.DataContainer;
 
 public class ProgramManager {
 	private static ProgramManager _inst;
-	
 	
 	Stack<View> viewStack;
 	View currentView = null;
@@ -60,7 +59,7 @@ public class ProgramManager {
 	}
 	
 	public void shutdown() {
-		DBH.getInst().shutdown();
+		DataContainer.getInst().shutdown();
 		System.exit(0);
 	}
 }
