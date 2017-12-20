@@ -15,10 +15,10 @@ public class AppLoginViewController extends ViewController {
 	};
 	
 	@Override
-	public void afterViewShow() {
+	public View getNextView() {
 		AppLoginView view = (AppLoginView)this.getView();
 		ProgramManager.getInstance().setBenutzer(view.loggedInUser);
-		ProgramManager.getInstance().addNext(new MainMenuView(view.loggedInUser));
+		return new MainMenuView(view.loggedInUser);
 	}
 	
 	public Benutzer checkLogin(String login, String password) {

@@ -7,15 +7,12 @@ public class MainMenuViewController extends ViewController {
 	}
 	
 	@Override
-	public void afterViewShow() {
+	public View getNextView() {
 		MainMenuView view = (MainMenuView)this.getView();
 		switch (view.getChoose()) {
-		case "1": startAusleiheListView(); break;
-		case "0": ProgramManager.getInstance().shutdown();break;
+		case "1":
+			return new AusleiheListView(); 
+		default: return null;
 		}
-	}
-	
-	protected void startAusleiheListView() {
-		ProgramManager.getInstance().addNext(new AusleiheListView());
 	}
 }

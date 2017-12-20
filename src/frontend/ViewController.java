@@ -5,7 +5,7 @@ import java.util.Observer;
 
 import business.entity.Benutzer;
 
-public class ViewController implements Observer {
+abstract public class ViewController implements Observer {
 	protected View view;
 	
 	public ViewController(View view) {
@@ -37,4 +37,5 @@ public class ViewController implements Observer {
 	
 	public void beforeViewShow() {}
 	public void afterViewShow() {}
+	public abstract View getNextView();
 }

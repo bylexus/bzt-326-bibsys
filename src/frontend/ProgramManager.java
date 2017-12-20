@@ -7,13 +7,11 @@ import persistence.DataContainer;
 public class ProgramManager {
 	private static ProgramManager _inst;
 	
-	Stack<View> viewStack;
 	View currentView = null;
 	
 	Benutzer benutzer = null;
 	
 	private ProgramManager() {
-		viewStack = new Stack<>();
 	}
 	
 	public static ProgramManager getInstance() {
@@ -23,33 +21,21 @@ public class ProgramManager {
 			return ProgramManager._inst;
 	}
 	
-	public void addNext(View view) {
-		viewStack.push(view);
-	}
-	
 	public View getCurrentView() {
 		return this.currentView;
 	}
 	
-	public void startCurrentView() {
-		while (!viewStack.isEmpty()) {
-			currentView = viewStack.peek();
-			currentView.show();
-			if (currentView != viewStack.peek()) {
-				startCurrentView();
-			} else {
-				popCurrentView();
-			}
+	public void startView(View view) {
+		this.currentView = view;
+		View nextView = currentView.show();
+		if (nextView == null) {
+			shutdown();
+		} else {
+			startView(nextView);
 		}
-		shutdown();
+		
 	}
 	
-	public View popCurrentView() {
-		View v = viewStack.pop(); 
-		v.dispose();
-		return v;
-	}
-
 	public Benutzer getBenutzer() {
 		return benutzer;
 	}

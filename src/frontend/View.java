@@ -10,12 +10,14 @@ abstract public class View extends Observable{
 		AFTER_SHOW
 	};
 	
-	public final void show() {
+	public final View show() {
 		setChanged();
 		notifyObservers(ACTION.BEFORE_SHOW);
 		displayView();
 		setChanged();
 		notifyObservers(ACTION.AFTER_SHOW);
+		
+		return this.getController().getNextView();
 	}
 	
 	abstract public void displayView();
