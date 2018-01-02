@@ -4,7 +4,7 @@ import java.util.Arrays;
 
 import business.entity.Benutzer;
 
-public class MainMenuView extends ConsoleView {
+public class MainMenuView extends View {
 	String choose = "";
 	Benutzer loggedInUser = null;
 	

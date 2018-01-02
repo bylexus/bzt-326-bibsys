@@ -2,7 +2,7 @@ package frontend;
 
 import business.entity.Benutzer;
 
-public class AppLoginView extends ConsoleView {
+public class AppLoginView extends View {
 	String choose = "";
 	Benutzer loggedInUser = null;
 	

@@ -1,6 +1,5 @@
 package frontend;
 
-import java.util.Stack;
 import business.entity.Benutzer;
 import persistence.DataContainer;
 

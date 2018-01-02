@@ -2,7 +2,7 @@ package frontend;
 
 import business.entity.Medium;
 
-public class AusleiheListView extends ConsoleView {
+public class AusleiheListView extends View {
 	public AusleiheListView() {
 		this.setController(new AusleiheListViewController(this));
 	}
