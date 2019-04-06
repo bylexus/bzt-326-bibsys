@@ -3,6 +3,7 @@ package frontend;
 import java.util.Arrays;
 
 import business.entity.Benutzer;
+import business.entity.Person;
 
 public class MainMenuView extends View {
 	String choose = "";
@@ -24,7 +25,16 @@ public class MainMenuView extends View {
 		String[] allowed = {"1","0"};
 		choose = "";
 		
-		out("W E L C O M E   to   B-I-B-S-Y-S, "+this.loggedInUser.getLogin());
+		Person p = this.loggedInUser.getPerson();
+		if (p != null) {
+			out(String.format("W E L C O M E   to   B-I-B-S-Y-S, %s %s (%s)",
+					p.getVorname(),
+					p.getNachname(),
+					p.getEmail()));	
+		} else {
+			out("W E L C O M E   to   B-I-B-S-Y-S");
+		}
+		
 		out("==================================================================\n");
 		out("1: Ausgeliehene Medien anzeigen");
 		

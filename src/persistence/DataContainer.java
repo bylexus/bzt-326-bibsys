@@ -14,18 +14,33 @@ import business.entity.Autor;
 import business.entity.Benutzer;
 import business.entity.Buch;
 import business.entity.Medium;
+import business.entity.Person;
 
 public class DataContainer implements Serializable{
 	private static final long serialVersionUID = 962047350284408762L;
 	
 	private long lastGlobalId = 0;
 	
+	public List<Person> personList = new ArrayList<>();
 	public List<Benutzer> benutzerList = new ArrayList<>();
 	public List<Medium> medienList = new ArrayList<>();
 	
 	private static DataContainer _inst;
 	
 	private DataContainer() {
+		this.init();
+	}
+	
+	private void init() {
+		if (this.personList == null) {
+			this.personList = new ArrayList<>();
+		}
+		if (this.benutzerList == null) {
+			this.benutzerList = new ArrayList<>();
+		}
+		if (this.medienList == null) {
+			this.medienList = new ArrayList<>();
+		}
 	}
 	
 	public static DataContainer getInst() {
@@ -34,6 +49,7 @@ public class DataContainer implements Serializable{
 				System.out.print("Reading serialized data ... ");
 				ObjectInputStream ois = new ObjectInputStream(new FileInputStream(new File("serialized.data")));
 				DataContainer._inst = (DataContainer)ois.readObject();
+				DataContainer._inst.init();
 				ois.close();
 				System.out.println("done.");
 			} catch (ClassNotFoundException e) {
@@ -67,8 +83,6 @@ public class DataContainer implements Serializable{
 			Benutzer b = new Benutzer();
 			b.setId(this.getNextId());
 			b.setLogin("benutzer"+i);
-			b.setVorname("Vorname "+i);
-			b.setNachname("Nachname "+i);
 			b.setPasswort(""+i);
 			list.add(b);
 		}
@@ -119,5 +133,4 @@ public class DataContainer implements Serializable{
 			e.printStackTrace();
 		}
 	}
-	
 }

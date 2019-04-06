@@ -9,6 +9,10 @@ abstract public class Medium implements Serializable{
 	private String titel;
 	private Benutzer ausgeliehenVon;
 	
+	private String mediennummer;
+	
+	private Interpret interpret;
+	
 	public Long getId() {
 		return id;
 	}
@@ -27,5 +31,17 @@ abstract public class Medium implements Serializable{
 	}
 	public void setAusgeliehenVon(Benutzer ausgeliehenVon) {
 		this.ausgeliehenVon = ausgeliehenVon;
+	}
+	public Interpret getInterpret() {
+		return interpret;
+	}
+	public void setInterpret(Interpret interpret) {
+		this.interpret = interpret;
+	}
+	public String getMediennummer() {
+		return mediennummer;
+	}
+	public void setMediennummer(String mediennummer) {
+		this.mediennummer = mediennummer;
 	}
 }
