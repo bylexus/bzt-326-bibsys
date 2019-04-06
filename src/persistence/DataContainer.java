@@ -67,8 +67,6 @@ public class DataContainer implements Serializable{
 			Benutzer b = new Benutzer();
 			b.setId(this.getNextId());
 			b.setLogin("benutzer"+i);
-			b.setVorname("Vorname "+i);
-			b.setNachname("Nachname "+i);
 			b.setPasswort(""+i);
 			list.add(b);
 		}
