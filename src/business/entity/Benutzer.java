@@ -14,9 +14,12 @@ public class Benutzer implements Serializable{
 	boolean admin = false;
 	boolean bibMA = false;
 	
-	
-	
 	Person person;
+	List<Rechnung> rechnungen = new ArrayList<>();
+
+	
+	
+	
 	
 	List<Medium> ausgelieheneMedien = new ArrayList<>();
 	
@@ -76,6 +79,27 @@ public class Benutzer implements Serializable{
 	 * beim Löschen eines Benutzer-Objektes noch anfallen.
 	 */
 	public void delete() {
+		for (Rechnung r : this.rechnungen) {
+			r.delete();
+		}
 		System.out.println("Deleting user: " + this.getLogin());
+	}
+	
+	public Rechnung createRechnung(Double betrag, String typ) throws Exception {
+		// Pruefen, ob noch eine offene Rechnung vom selben Typ bereits vorhanden ist:
+		for (Rechnung r : this.rechnungen) {
+			if (r.getBezahltAm() == null && typ.equals(r.getTyp())) {
+				throw new Exception("Offene Rechnug vom selben Typ vorhanden!");
+			}
+		}
+		// OK, wir erstellen die Rechnung:
+		Rechnung r = new Rechnung();
+		r.setBetrag(betrag);
+		r.setTyp(typ);
+		this.rechnungen.add(r);
+		return r;
+	}
+	public List<Rechnung> getRechnungen() {
+		return rechnungen;
 	}
 }

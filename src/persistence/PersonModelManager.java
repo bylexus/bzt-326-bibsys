@@ -31,10 +31,10 @@ public class PersonModelManager extends ModelManager<Person> {
 	
 	public void deletePerson(Person p) {
 		Benutzer b = p.getBenutzer();
-		b.setPerson(null);
-		p.setBenutzer(null);
 		this.getDataContainer().benutzerList.remove(b);
 		this.getDataContainer().personList.remove(p);
+		b.delete();
+		p.delete();
 	}
 	
 	@Override

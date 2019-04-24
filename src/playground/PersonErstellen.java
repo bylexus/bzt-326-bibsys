@@ -16,7 +16,7 @@ public class PersonErstellen {
 		PersonModelManager pm = new PersonModelManager();
 		
 		// Person erstellen (lassen):
-		Person p = pm.createPerson("Willis", "Bruce", "bruce@willis.com");
+		Person p = pm.createPerson("Willlis", "Bruce", "bruce@willis.com");
 		
 		// Kontrolle:
 		System.out.println("Person erstellt:");
