@@ -55,8 +55,10 @@ public class DataContainer implements Serializable{
 			} catch (ClassNotFoundException e) {
 				e.printStackTrace();
 			} catch (FileNotFoundException e) {
+				e.printStackTrace();
 			} catch (IOException e) {
-			}	
+				e.printStackTrace();
+			}
 		}
 		
 		// Still null (not deserialized), so generate instance and create sample data:

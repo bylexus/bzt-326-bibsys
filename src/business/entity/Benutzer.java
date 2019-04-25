@@ -85,6 +85,12 @@ public class Benutzer implements Serializable{
 		System.out.println("Deleting user: " + this.getLogin());
 	}
 	
+	/**
+	 * Erzeugt eine neue Rechnung für den Benutzer, wobei geprüft wird:
+	 * - es darf nur 1 offene Rechnung pro Typ (und Nutzer) geben
+	 * 
+	 * @throws Exception
+	 */
 	public Rechnung createRechnung(Double betrag, String typ) throws Exception {
 		// Pruefen, ob noch eine offene Rechnung vom selben Typ bereits vorhanden ist:
 		for (Rechnung r : this.rechnungen) {

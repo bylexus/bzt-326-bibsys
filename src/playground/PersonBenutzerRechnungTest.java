@@ -15,6 +15,7 @@ public class PersonBenutzerRechnungTest {
 	public static void main(String[] args) {
 		PersonModelManager pm = new PersonModelManager();
 		
+		// Person erzeugen, erzeugt gleich Benutzer mit:
 		Person p = pm.createPerson("Duck", "Donald", "donald@ducks.com");
 		Benutzer b = p.getBenutzer();
 		
