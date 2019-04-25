@@ -11,7 +11,9 @@ public class MainMenuViewController extends ViewController {
 		MainMenuView view = (MainMenuView)this.getView();
 		switch (view.getChoose()) {
 		case "1":
-			return new AusleiheListView(); 
+			return new AusleiheListView();
+		case "2":
+			return new PersonManagerView();
 		default: return null;
 		}
 	}

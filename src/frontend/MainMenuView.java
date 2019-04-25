@@ -22,7 +22,7 @@ public class MainMenuView extends View {
 	@Override
 	public void displayView() {
 		clearScreen();
-		String[] allowed = {"1","0"};
+		String[] allowed = {"1","2", "0"};
 		choose = "";
 		
 		Person p = this.loggedInUser.getPerson();
@@ -37,6 +37,7 @@ public class MainMenuView extends View {
 		
 		out("==================================================================\n");
 		out("1: Ausgeliehene Medien anzeigen");
+		out("2: Person-Manager");
 		
 		out("0: Beenden\n");
 		

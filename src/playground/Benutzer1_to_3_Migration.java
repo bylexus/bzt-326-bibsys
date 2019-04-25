@@ -26,6 +26,10 @@ public class Benutzer1_to_3_Migration {
 			p.setNachname("Schenkel");
 			p.setEmail("a@alexi.ch");
 			benutzer1.setPerson(p);
+			p.setBenutzer(benutzer1);
+		}
+		if (!DataContainer.getInst().personList.contains(benutzer1.getPerson())) {
+			DataContainer.getInst().personList.add(benutzer1.getPerson());
 		}
 		if (benutzer2 != null && benutzer2.getPerson() == null) {
 			System.out.println("Migriere benutzer2...");
@@ -34,6 +38,10 @@ public class Benutzer1_to_3_Migration {
 			p.setNachname("Skywalker");
 			p.setEmail("luke@tatooine.org");
 			benutzer2.setPerson(p);
+			p.setBenutzer(benutzer2);
+		}
+		if (!DataContainer.getInst().personList.contains(benutzer2.getPerson())) {
+			DataContainer.getInst().personList.add(benutzer2.getPerson());
 		}
 		if (benutzer3 != null && benutzer3.getPerson() == null) {
 			System.out.println("Migriere benutzer3...");
@@ -42,6 +50,10 @@ public class Benutzer1_to_3_Migration {
 			p.setNachname("Norris");
 			p.setEmail("i-am-the-internet@me.com");
 			benutzer3.setPerson(p);
+			p.setBenutzer(benutzer3);
+		}
+		if (!DataContainer.getInst().personList.contains(benutzer3.getPerson())) {
+			DataContainer.getInst().personList.add(benutzer3.getPerson());
 		}
 		
 		// Daten persistieren:
