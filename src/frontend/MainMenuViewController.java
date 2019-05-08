@@ -14,6 +14,10 @@ public class MainMenuViewController extends ViewController {
 			return new AusleiheListView();
 		case "2":
 			return new PersonManagerView();
+		case "3":
+			return new BarcodeAusleiheView();
+		case "4":
+			return new AusleihePrintListView();
 		default: return null;
 		}
 	}

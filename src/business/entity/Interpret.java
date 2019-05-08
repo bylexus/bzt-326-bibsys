@@ -11,6 +11,10 @@ public class Interpret implements Serializable{
 	private String geburtsdatum;
 	private List<Medium> werke = new ArrayList<>();
 	
+	public Interpret() {
+		
+	}
+	
 	public Interpret(String name, String vorname) {
 		this.name = name;
 		this.vorname = vorname;

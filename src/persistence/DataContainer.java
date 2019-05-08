@@ -8,12 +8,15 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import business.entity.Autor;
 import business.entity.Benutzer;
 import business.entity.Buch;
 import business.entity.Medium;
+import business.entity.MediumExemplar;
 import business.entity.Person;
 
 public class DataContainer implements Serializable{
@@ -63,6 +66,7 @@ public class DataContainer implements Serializable{
 		
 		// Still null (not deserialized), so generate instance and create sample data:
 		if (DataContainer._inst == null) {
+			System.out.println("Generate sample data...");
 			DataContainer._inst = new DataContainer();
 			DataContainer._inst.generateExampleData();
 		}
@@ -99,6 +103,19 @@ public class DataContainer implements Serializable{
 			b.setTitel("Buch "+i);
 			b.setIsbn("345-123-"+i+i+i);
 			b.setAutor(a);
+			
+			MediumExemplar e = new MediumExemplar();
+			e.setAusleihbar(true);
+			e.setExemplarNr("1");
+			e.setMedium(b);
+			b.getExemplare().add(e);
+			
+			e = new MediumExemplar();
+			e.setAusleihbar(true);
+			e.setExemplarNr("2");
+			e.setMedium(b);
+			b.getExemplare().add(e);
+			
 			list.add(b);
 		}
 	}
@@ -108,12 +125,14 @@ public class DataContainer implements Serializable{
 		Medium m;
 		if (b.getAusgelieheneMedien().isEmpty()) {
 			m = medien.get(0);
-			m.setAusgeliehenVon(b);
-			b.getAusgelieheneMedien().add(m);
+			m.getExemplare().get(0).setAusgeliehenAm(new Date());
+			m.getExemplare().get(0).setAusgeliehenBis(new Date());
+			b.getAusgelieheneMedien().add(m.getExemplare().get(0));
 			
 			m = medien.get(1);
-			m.setAusgeliehenVon(b);
-			b.getAusgelieheneMedien().add(m);
+			m.getExemplare().get(0).setAusgeliehenAm(new Date());
+			m.getExemplare().get(0).setAusgeliehenBis(new Date());
+			b.getAusgelieheneMedien().add(m.getExemplare().get(0));
 		}
 	}
 	

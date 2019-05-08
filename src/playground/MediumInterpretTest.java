@@ -1,9 +1,9 @@
 package playground;
 
-import business.MediumManager;
 import business.entity.CD;
 import business.entity.Interpret;
 import business.entity.Medium;
+import persistence.MediumManager;
 
 public class MediumInterpretTest {
 
@@ -21,6 +21,5 @@ public class MediumInterpretTest {
 		}
 		
 		System.out.println("Interpret der CD " + cd1 + ": " + cd1.getInterpret().getVorname() + " " + cd1.getInterpret().getName());
-		
 	}
 }

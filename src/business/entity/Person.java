@@ -2,7 +2,9 @@ package business.entity;
 
 import java.io.Serializable;
 
-public class Person implements Serializable{
+import business.RechnungXmlComposite;
+
+public class Person implements Serializable, RechnungXmlComposite{
 	private static final long serialVersionUID = -2205697479729045531L;
 	private String nachname;
 	private String vorname;
@@ -44,6 +46,21 @@ public class Person implements Serializable{
 	public void delete() {
 		System.out.println("Deleting Person: " + this.getNachname());
 	}
-	
-	
+
+	@Override
+	/**
+	 * Aufgabe aus Lektion 11 - Composite: XML mittels Composite-Pattern implementieren
+	 */
+	public String createXml(int indent) {
+		String indentStr = String.format(indent > 0 ? "%"+indent+"s" : "", " ");
+		String innerIndentStr = String.format("%" + (indent + 4) +"s", " ");
+		
+		String res = indentStr + "<person>\n";
+		res += innerIndentStr + "<name>"+this.getNachname()+"</name>\n";
+		res += innerIndentStr + "<vorname>"+this.getVorname()+"</vorname>\n";
+		res += innerIndentStr + "<email>"+this.getEmail()+"</email>\n";
+		
+		res += indentStr + "</person>\n";
+		return res;
+	}
 }

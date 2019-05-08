@@ -4,8 +4,10 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Benutzer implements Serializable{
-	private static final long serialVersionUID = -3927525614383424503L;
+import business.RechnungXmlComposite;
+
+public class Benutzer implements Serializable, RechnungXmlComposite{
+	private static final long serialVersionUID = -1735997746554873279L;
 
 	private Long id;
 	
@@ -16,12 +18,7 @@ public class Benutzer implements Serializable{
 	
 	Person person;
 	List<Rechnung> rechnungen = new ArrayList<>();
-
-	
-	
-	
-	
-	List<Medium> ausgelieheneMedien = new ArrayList<>();
+	List<MediumExemplar> ausgelieheneMedien = new ArrayList<>();
 	
 	public Long getId() {
 		return id;
@@ -59,10 +56,10 @@ public class Benutzer implements Serializable{
 		this.bibMA = bibMA;
 	}
 	
-	public List<Medium> getAusgelieheneMedien() {
+	public List<MediumExemplar> getAusgelieheneMedien() {
 		return ausgelieheneMedien;
 	}
-	public void setAusgelieheneMedien(List<Medium> ausgelieheneMedien) {
+	public void setAusgelieheneMedien(List<MediumExemplar> ausgelieheneMedien) {
 		this.ausgelieheneMedien = ausgelieheneMedien;
 	}
 	public Person getPerson() {
@@ -107,5 +104,24 @@ public class Benutzer implements Serializable{
 	}
 	public List<Rechnung> getRechnungen() {
 		return rechnungen;
+	}
+	
+	
+	@Override
+	/**
+	 * Aufgabe aus Lektion 11 - Composite: XML mittels Composite-Pattern implementieren
+	 */
+	public String createXml(int indent) {
+		String indentStr = String.format(indent > 0 ? "%"+indent+"s" : "", " ");
+		String innerIndentStr = String.format("%" + (indent + 4) +"s", " ");
+		
+		String res = indentStr + "<benutzer>\n";
+		res += innerIndentStr + "<login>"+this.getLogin()+"</login>\n";
+		res += innerIndentStr + "<istBibMitarbeiter>"+this.isBibMA()+"</istBibMitarbeiter>\n";
+		if (this.getPerson() != null) {
+			res += this.getPerson().createXml(indent + 4);
+		}
+		res += indentStr + "</benutzer>\n";
+		return res;
 	}
 }

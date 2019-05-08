@@ -1,18 +1,26 @@
 package business.entity;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
-abstract public class Medium implements Serializable{
+import business.PrintListComposite;
+
+abstract public class Medium implements Serializable, PrintListComposite {
 	private static final long serialVersionUID = -7700997192162171490L;
 	
 	private Long id;
 	private String titel;
-	private Benutzer ausgeliehenVon;
-	
 	private String mediennummer;
 	
-	private Interpret interpret;
+	private List<MediumExemplar> exemplare = new ArrayList<MediumExemplar>();
 	
+	public List<MediumExemplar> getExemplare() {
+		return exemplare;
+	}
+	public void setExemplare(List<MediumExemplar> exemplare) {
+		this.exemplare = exemplare;
+	}
 	public Long getId() {
 		return id;
 	}
@@ -26,18 +34,6 @@ abstract public class Medium implements Serializable{
 		this.titel = titel;
 	}
 	
-	public Benutzer getAusgeliehenVon() {
-		return ausgeliehenVon;
-	}
-	public void setAusgeliehenVon(Benutzer ausgeliehenVon) {
-		this.ausgeliehenVon = ausgeliehenVon;
-	}
-	public Interpret getInterpret() {
-		return interpret;
-	}
-	public void setInterpret(Interpret interpret) {
-		this.interpret = interpret;
-	}
 	public String getMediennummer() {
 		return mediennummer;
 	}
