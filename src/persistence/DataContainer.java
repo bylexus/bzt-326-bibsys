@@ -83,6 +83,7 @@ public class DataContainer implements Serializable{
 			b.setTitel("Buch "+i);
 			b.setIsbn("345-123-"+i+i+i);
 			b.setAutor(a);
+			b.setBarcode("code-" + i);
 			list.add(b);
 		}
 	}

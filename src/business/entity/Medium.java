@@ -8,7 +8,14 @@ abstract public class Medium implements Serializable{
 	private Long id;
 	private String titel;
 	private Benutzer ausgeliehenVon;
+	private String barcode;
 	
+	public String getBarcode() {
+		return barcode;
+	}
+	public void setBarcode(String barcode) {
+		this.barcode = barcode;
+	}
 	public Long getId() {
 		return id;
 	}

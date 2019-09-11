@@ -28,7 +28,8 @@ public class AusleiheListViewController extends ViewController<AusleiheListView>
 			public Object getValueAt(int rowIndex, int columnIndex) {
 				switch (columnIndex) {
 				case 0: return data.elementAt(rowIndex).getId();
-				case 1: return data.elementAt(rowIndex).getTitel(); 
+				case 1: return data.elementAt(rowIndex).getTitel();
+				case 2: return data.elementAt(rowIndex).getBarcode();
 				}
 				return null;
 			}
