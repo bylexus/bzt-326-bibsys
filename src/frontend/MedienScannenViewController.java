@@ -8,7 +8,9 @@ import java.util.concurrent.ExecutionException;
 import javax.swing.SwingWorker;
 
 import business.ProgramManager;
+import business.entity.Ausleihe;
 import business.entity.Medium;
+import business.entity.MediumExemplar;
 import persistence.MediumMM;
 
 public class MedienScannenViewController extends ViewController<MedienScannenView> implements ActionListener {
@@ -36,23 +38,25 @@ public class MedienScannenViewController extends ViewController<MedienScannenVie
 		if (barcode.length() < 1) {
 			this.view.textArea.append("Nichts zum Scannen ....\n");	
 		} else {
-			SwingWorker worker = new SwingWorker<String, String>() {
+			SwingWorker<String, String> worker = new SwingWorker<String, String>() {
 				@Override
 				protected String doInBackground() throws Exception {
 					String barcode = view.barcodeField.getText();
 					publish("Starte scan für Barcode: " + barcode + "\n");
-					Medium m = mediumManager.findMediumByBarcode(barcode);
+					MediumExemplar ex = mediumManager.findFreeMediumExemplarByBarcode(barcode);
+					Medium m;
 					Thread.sleep(500);
-					if (m == null) {
+					if (ex == null) {
 						publish("Kein Medium für diesen Barcode gefunden!\n");
-					} else if (m.getAusgeliehenVon() != null) {
-						publish("Medium bereits ausgeliehen von: " + m.getAusgeliehenVon().getLogin() + "\n");
+					} else if (ex.getAusleihe() != null) {
+						publish("Medium bereits ausgeliehen von: " + ex.getAusleihe().getBenutzer().getLogin() + "\n");
 					} else {
 						publish("Medium ausleihen .... ");
-						m.setAusgeliehenVon(ProgramManager.getInstance().getBenutzer());
-						ProgramManager.getInstance().getBenutzer().getAusgelieheneMedien().add(m);
+						m = ex.getMedium();
+						Ausleihe a = mediumManager.createAusleihe(ex, ProgramManager.getInstance().getBenutzer());
 						Thread.sleep(200);
-						publish("Erfolg! \n");
+						publish("Medium gefunden: " + m.getTitel() + "(Nr: " + m.getMediennummer() + "-"+ex.getExemplarNr() + ")" + "\n");
+						publish("Ausleihe bis " + a.getZurueckAm() + "\n");
 					}
 					Thread.sleep(500);
 					return "Scan fertig.\n";

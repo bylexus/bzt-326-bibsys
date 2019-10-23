@@ -1,20 +1,31 @@
 package business.entity;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 abstract public class Medium implements Serializable{
 	private static final long serialVersionUID = -7700997192162171490L;
 	
 	private Long id;
 	private String titel;
-	private Benutzer ausgeliehenVon;
-	private String barcode;
+	private int mediennummer;
 	
-	public String getBarcode() {
-		return barcode;
+	
+	
+	public int getMediennummer() {
+		return mediennummer;
 	}
-	public void setBarcode(String barcode) {
-		this.barcode = barcode;
+	public void setMediennummer(int mediennummer) {
+		this.mediennummer = mediennummer;
+	}
+	List<MediumExemplar> exemplare = new ArrayList<MediumExemplar>();
+	
+	public List<MediumExemplar> getExemplare() {
+		return exemplare;
+	}
+	public void setExemplare(List<MediumExemplar> exemplare) {
+		this.exemplare = exemplare;
 	}
 	public Long getId() {
 		return id;
@@ -27,12 +38,5 @@ abstract public class Medium implements Serializable{
 	}
 	public void setTitel(String titel) {
 		this.titel = titel;
-	}
-	
-	public Benutzer getAusgeliehenVon() {
-		return ausgeliehenVon;
-	}
-	public void setAusgeliehenVon(Benutzer ausgeliehenVon) {
-		this.ausgeliehenVon = ausgeliehenVon;
 	}
 }

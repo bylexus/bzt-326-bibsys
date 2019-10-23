@@ -2,13 +2,13 @@ package frontend;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Vector;
+import java.util.List;
 
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.TableModel;
 
 import business.ProgramManager;
-import business.entity.Medium;
+import business.entity.Ausleihe;
 
 public class AusleiheListViewController extends ViewController<AusleiheListView> {
 	
@@ -21,15 +21,15 @@ public class AusleiheListViewController extends ViewController<AusleiheListView>
 			}
 		});
 		
-		Vector<Medium> data = new Vector<>(ProgramManager.getInstance().getBenutzer().getAusgelieheneMedien());
+		List<Ausleihe> data = ProgramManager.getInstance().getBenutzer().getAusgelieheneMedien();
 		String[] columns = view.columnNames();
 		TableModel model = new AbstractTableModel() {
 			@Override
 			public Object getValueAt(int rowIndex, int columnIndex) {
 				switch (columnIndex) {
-				case 0: return data.elementAt(rowIndex).getId();
-				case 1: return data.elementAt(rowIndex).getTitel();
-				case 2: return data.elementAt(rowIndex).getBarcode();
+				case 0: return data.get(rowIndex).getExemplar().getMedium().getId();
+				case 1: return data.get(rowIndex).getExemplar().getMedium().getTitel();
+				case 2: return data.get(rowIndex).getExemplar().getBarcode();
 				}
 				return null;
 			}
