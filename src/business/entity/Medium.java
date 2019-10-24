@@ -10,6 +10,16 @@ abstract public class Medium implements Serializable{
 	private Long id;
 	private String titel;
 	private int mediennummer;
+	List<MediumExemplar> exemplare = new ArrayList<MediumExemplar>();
+	
+	public List<MediumExemplar> getExemplare() {
+		return exemplare;
+	}
+	public void setExemplare(List<MediumExemplar> exemplare) {
+		this.exemplare = exemplare;
+	}
+
+
 	
 	
 	
@@ -19,14 +29,7 @@ abstract public class Medium implements Serializable{
 	public void setMediennummer(int mediennummer) {
 		this.mediennummer = mediennummer;
 	}
-	List<MediumExemplar> exemplare = new ArrayList<MediumExemplar>();
 	
-	public List<MediumExemplar> getExemplare() {
-		return exemplare;
-	}
-	public void setExemplare(List<MediumExemplar> exemplare) {
-		this.exemplare = exemplare;
-	}
 	public Long getId() {
 		return id;
 	}
