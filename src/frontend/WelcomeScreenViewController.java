@@ -33,11 +33,18 @@ public class WelcomeScreenViewController extends ViewController<WelcomeScreenVie
 				ProgramManager.getInstance().requestMainPanelAdd(new MedienScannenView());
 			}
 		});
+		view.getBtnPersonmanager().addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				ProgramManager.getInstance().requestMainPanelAdd(new PersonManagerView());
+			}
+		});
 		view.getBtnBeenden().addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				ProgramManager.getInstance().shutdown();
 			}
 		});
+		
 	}
 }

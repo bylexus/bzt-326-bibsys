@@ -23,6 +23,7 @@ public class WelcomeScreenView extends JPanel {
 	private JButton btnBeenden;
 	private Component verticalGlue;
 	private JButton btnMedienAmTerminal;
+	private JButton btnPersonmanager;
 	public WelcomeScreenView() {
 		initUI();
 		ctrl = new WelcomeScreenViewController(this);
@@ -49,6 +50,9 @@ public class WelcomeScreenView extends JPanel {
 		btnMedienAmTerminal = new JButton("Medien am Terminal scannen");
 		centerPanel.add(btnMedienAmTerminal);
 		
+		btnPersonmanager = new JButton("Person-Manager");
+		centerPanel.add(btnPersonmanager);
+		
 		verticalGlue = Box.createVerticalGlue();
 		centerPanel.add(verticalGlue);
 		
@@ -60,6 +64,10 @@ public class WelcomeScreenView extends JPanel {
 		centerPanel.add(btnBeenden);
 	}
 	
+	public JButton getBtnPersonmanager() {
+		return btnPersonmanager;
+	}
+
 	public JLabel getWelcomeLabel() {
 		return welcomeLabel;
 	}

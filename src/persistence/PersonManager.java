@@ -15,16 +15,11 @@ public class PersonManager extends ModelManager<Person> {
 	 * Zurück erhält man ein Person-Objekt mit dazugehörigem Benutzer.
 	 */
 	public Person createPerson(String name, String vorname, Date geburtsdatum) {
-		BenutzerMM benutzerManager = new BenutzerMM();
 		Person p = new Person();
 		p.setName(name);
 		p.setVorname(vorname);
 		p.setGeburtsdatum(geburtsdatum);
 		this.store(p);
-		
-		Benutzer b = benutzerManager.createBenutzer(p);
-		p.setBenutzer(b);
-		
 		return p;
 	}
 	
@@ -56,8 +51,15 @@ public class PersonManager extends ModelManager<Person> {
 
 	@Override
 	public void store(Person entity) {
+		
 		if (!this.getDataContainer().personList.contains(entity)) {
 			this.getDataContainer().personList.add(entity);
+		}
+
+		if (entity.getBenutzer() == null) {
+			BenutzerMM benutzerManager = new BenutzerMM();
+			Benutzer b = benutzerManager.createBenutzer(entity);
+			entity.setBenutzer(b);	
 		}
 	}
 }
