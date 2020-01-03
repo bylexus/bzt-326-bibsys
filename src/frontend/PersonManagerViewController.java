@@ -1,9 +1,10 @@
 package frontend;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.List;
 
+import javax.swing.JTable;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.TableModel;
 
@@ -15,22 +16,28 @@ public class PersonManagerViewController extends ViewController<PersonManagerVie
 	
 	public PersonManagerViewController(PersonManagerView view) {
 		super(view);
-		view.getBtnZurueck().addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				ProgramManager.getInstance().requestRemoveLastPanel();
-			}
-		});
+		view.getBtnZurueck().addActionListener(
+			e -> ProgramManager.getInstance().requestRemoveLastPanel()
+		);
 		
-		view.btnNewPerson.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				PersonManagerViewController.this.startCreatePerson();
-				
-			}
-		});
+		view.btnNewPerson.addActionListener(
+			e -> PersonManagerViewController.this.startCreatePerson()
+		);
 		
 		List<Person> data = DataContainer.getInst().personList;
+		
+		view.personList.addMouseListener(new MouseAdapter() {
+			public void mouseClicked(MouseEvent me) {
+	            if (me.getClickCount() == 2) {     // to detect doble click events
+	               JTable target = (JTable)me.getSource();
+	               int row = target.getSelectedRow(); // select a row
+	               Person p = data.get(row);
+	               if (p != null) {
+	            	   openPersonEingabeForm(p);
+	               }
+	            }
+	         }
+		});
 		
 		String[] columns = view.columnNames();
 		TableModel model = new AbstractTableModel() {
@@ -71,11 +78,12 @@ public class PersonManagerViewController extends ViewController<PersonManagerVie
 	public void startCreatePerson() {
 		// 1. neue Person instanzieren: Dies ist das Model, welches wir für unsere Formular-View benötigen:
 		Person p = new Person();
-		
+		this.openPersonEingabeForm(p);
+	}
+	
+	public void openPersonEingabeForm(Person p) {
 		// 2. View instanzieren, Model übergeben:
 		PersonEingabeView v = new PersonEingabeView(p);
-		
-		// 3. Listener auf View: Wenn View beendet wird, möchten wir die Person-Liste aktualisieren:
 		
 		// 4. View aufrufen:
 		ProgramManager.getInstance().requestMainPanelAdd(v);

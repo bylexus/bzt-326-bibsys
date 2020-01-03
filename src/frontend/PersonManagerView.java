@@ -15,7 +15,7 @@ import javax.swing.JToolBar;
 public class PersonManagerView extends JPanel {
 	PersonManagerViewController ctrl;
 	private JButton btnZurueck;
-	private JTable personList;
+	JTable personList;
 	private String[] columns = {"Name", "Vorname", "Email", "Login"};
 	JButton btnNewPerson;
 	
@@ -42,7 +42,6 @@ public class PersonManagerView extends JPanel {
 		JScrollPane scrollPane = new JScrollPane(personList);
 		personList.setFillsViewportHeight(true);
 		add(scrollPane, BorderLayout.CENTER);
-
 		
 		JPanel panel = new JPanel();
 		FlowLayout flowLayout = (FlowLayout) panel.getLayout();

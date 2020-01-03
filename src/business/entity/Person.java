@@ -3,7 +3,9 @@ package business.entity;
 import java.io.Serializable;
 import java.util.Date;
 
-public class Person implements Serializable{
+import business.ISerializeXml;
+
+public class Person implements Serializable, ISerializeXml{
 	private static final long serialVersionUID = -8731847388527114130L;
 	
 	String name;
@@ -65,6 +67,29 @@ public class Person implements Serializable{
 		this.ort = ort;
 	}
 	
-	
-
+	@Override
+	/**
+	 * Composite-Methode des Person-Objektes
+	 */
+	public String toXml(int indentation) {
+		String inStr = String.format("%"+indentation+"s","");
+		String inStr2 = String.format("%"+(indentation+4)+"s","");
+		
+		String ret = String.format(
+				"%s<person>\n"
+				+ "%s<name>%s</name\n"
+				+ "%s<vorname>%s</vorname>\n"
+				+ "%s<adresse>%s</adresse>\n"
+				+ "%s</person>\n",
+				inStr,
+				inStr2,
+				this.getName(),
+				inStr2,
+				this.getVorname(),
+				inStr2,
+				this.getAdresse(),
+				inStr
+				) ;
+		return ret;
+	}
 }

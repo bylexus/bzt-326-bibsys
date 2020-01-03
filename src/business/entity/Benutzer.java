@@ -4,7 +4,9 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Benutzer implements Serializable{
+import business.ISerializeXml;
+
+public class Benutzer implements Serializable, ISerializeXml {
 	private static final long serialVersionUID = -3927525614383424503L;
 
 	private Long id;
@@ -72,5 +74,41 @@ public class Benutzer implements Serializable{
 	}
 	public void setAusgelieheneMedien(List<Ausleihe> ausgelieheneMedien) {
 		this.ausgelieheneMedien = ausgelieheneMedien;
+	}
+	@Override
+	/**
+	 * Composite-Methode für XML-Export:
+	 * exportiert dieses Element als XML. Für die
+	 * Ausgabe der Beziehungen (Person, Ausleihe) wird die
+	 * Composite-Methode der Kind-Klassen aufgerufen.
+	 */
+	public String toXml(int indentation) {
+		String inStr = String.format("%"+indentation+"s","");
+		ISerializeXml personXml = this.getPerson();
+		String personXmlStr = personXml.toXml(indentation + 4);
+
+		String ausleihenXmlStr = "";
+		List<? extends ISerializeXml> ausleihenXml = this.getAusgelieheneMedien();
+		for (ISerializeXml item : ausleihenXml) {
+			ausleihenXmlStr += item.toXml(indentation + 4);
+		}
+		
+		String ret = String.format(
+				"%s<benutzer>\n"
+				+ "%s<login>%s</login>\n"
+				+ "%s%s"
+				+ "%s<ausleihen>\n%s%s</ausleihen>\n"
+				+ "%s</benutzer>\n",
+				inStr,
+				inStr,
+				this.getLogin(),
+				inStr,
+				personXmlStr,
+				inStr,
+				ausleihenXmlStr,
+				inStr,
+				inStr
+				) ;
+		return ret;
 	}	
 }
