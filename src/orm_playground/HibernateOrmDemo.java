@@ -1,11 +1,15 @@
 package orm_playground;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.EntityManager;
 
 import business.ProgramManager;
 import business.entity.Benutzer;
+import business.entity.Medium;
+import business.entity.MediumExemplar;
+import business.entity.Person;
 
 public class HibernateOrmDemo {
 
@@ -14,30 +18,43 @@ public class HibernateOrmDemo {
 		EntityManager em = pm.getEntityManager();
 		
 		
-		List<Benutzer> benutzerliste = pm.getEntityManager().createQuery("select b from Benutzer b",Benutzer.class).getResultList();
+		/** *********************** Benutzer - Personen ********************* */
+		
+		List<Person> personen = pm.getEntityManager().createQuery("select p from Person p LEFT JOIN FETCH p.benutzer",Person.class).getResultList();
 		
 		// Transaktion starten: Sobald wir Entitäten speichern wollen, ist das notwendig:
 		em.getTransaction().begin();
-		if (benutzerliste.size() == 0) {
-			// Beispielbenutzer anlegen
-			Benutzer b = new Benutzer();
-			b.setLogin("benutzer1");
-			b.setPasswort("1");
-			
-			// Persistieren in DB:
-			em.persist(b);
-			
-			// Noch einer:
-			b = new Benutzer();
-			b.setLogin("benutzer2");
-			b.setPasswort("2");
-			
-			// Persistieren in DB:
-			em.persist(b);
+		if (personen.size() == 0) {
+			// Beispiel Personen mit Benutzer anlegen:
+			for (int i = 1; i <= 5; i++) {
+				Person p = new Person();
+				p.setName("Name " + i);
+				p.setVorname("Vorname " + i);
+				p.setGeburtsdatum(new Date());
+				
+				// Benutzer anlegen und zuweisen:
+				Benutzer b = new Benutzer();
+				b.setLogin("benutzer"+i);
+				b.setPasswort(Integer.toString(i));
+				// Objektmodell in beide Richtungen aktualisieren:
+				p.setBenutzer(b);
+				b.setPerson(p);
+				
+				// Persistieren:
+				em.persist(p);
+			}
 		} else {
-			// Vorhandene Benutzer ausgeben:
-			for (Benutzer b : benutzerliste) {
-				System.out.println(String.format("Vorhandener Benutzer: ID %s (%s)",b.getId(),b.getLogin()));
+			// Vorhandene Prsonen mit Benutzern ausgeben:
+			for (Person p : personen) {
+				System.out.println(String.format(
+						"Vorhandene Person: ID %s: %s %s (%s), Benutzer: ID %s (%s)",
+						p.getId(),
+						p.getVorname(),
+						p.getName(),
+						p.getGeburtsdatum(),
+						p.getBenutzer().getId(),
+						p.getBenutzer().getLogin()
+				));
 			}
 		}
 		
@@ -45,7 +62,40 @@ public class HibernateOrmDemo {
 		em.getTransaction().commit();
 		
 		
+		
+		
+		/** *********************** Medium - Exemplare ********************* */
+		em.getTransaction().begin();
+		List<Medium> medien = em.createQuery("SELECT m FROM Medium m",Medium.class).getResultList();
+		
+		if (medien.size() == 0) {
+			for (int i = 1; i <= 5; ++i) {
+				Medium m = new Medium();
+				m.setTitel("Medium #" + i);
+				for (int j = 1; j <= 5; ++j) {
+					MediumExemplar ex = new MediumExemplar();
+					ex.setBarcode(j + "-" + j + "-" +j);
+					ex.setMedium(m);
+					m.getExemplare().add(ex);
+				}
+				em.persist(m);
+			}
+		} else {
+			// Vorhandene Medien mit Exemplaren ausgeben:
+			for (Medium m : medien) {
+				System.out.println(String.format(
+						"Medium: %s: %s, Exemplare: %s",
+						m.getId(),
+						m.getTitel(),
+						m.getExemplare().size()
+				));
+				for (MediumExemplar me : m.getExemplare()) {
+					System.out.println(String.format("  Ex: %s, Barcode: %s", me.getId(), me.getBarcode()));
+				}
+			}
+		}
+				
+		em.getTransaction().commit();
 		pm.shutdown();
 	}
-
 }

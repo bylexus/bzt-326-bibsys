@@ -3,10 +3,36 @@ package business.entity;
 import java.io.Serializable;
 import java.util.Date;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+import javax.persistence.Transient;
+
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+import org.hibernate.annotations.GenericGenerator;
+
 import business.ISerializeXml;
 
-public class Person implements Serializable, ISerializeXml{
+@Entity
+@Table(name="PERSON")
+public class Person implements Serializable {
 	private static final long serialVersionUID = -8731847388527114130L;
+	
+	private Long id;
+	@Id
+	@GeneratedValue(generator="increment")
+	@GenericGenerator(name="increment", strategy = "increment")
+	public Long getId() {
+		return id;
+	}
+	public void setId(Long id) {
+		this.id = id;
+	}
 	
 	String name;
 	String vorname;
@@ -15,7 +41,8 @@ public class Person implements Serializable, ISerializeXml{
 	String plz;
 	String ort;
 	String email;
-	Benutzer benutzer;
+	
+
 	
 	public String getEmail() {
 		return email;
@@ -23,10 +50,18 @@ public class Person implements Serializable, ISerializeXml{
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	
+
+	Benutzer benutzer;
+	@OneToOne(
+			mappedBy = "person",
+			cascade = CascadeType.ALL,
+			orphanRemoval = true,
+			fetch = FetchType.EAGER
+	)
 	public Benutzer getBenutzer() {
 		return benutzer;
 	}
+	
 	public void setBenutzer(Benutzer benutzer) {
 		this.benutzer = benutzer;
 	}
@@ -65,31 +100,5 @@ public class Person implements Serializable, ISerializeXml{
 	}
 	public void setOrt(String ort) {
 		this.ort = ort;
-	}
-	
-	@Override
-	/**
-	 * Composite-Methode des Person-Objektes
-	 */
-	public String toXml(int indentation) {
-		String inStr = String.format("%"+indentation+"s","");
-		String inStr2 = String.format("%"+(indentation+4)+"s","");
-		
-		String ret = String.format(
-				"%s<person>\n"
-				+ "%s<name>%s</name\n"
-				+ "%s<vorname>%s</vorname>\n"
-				+ "%s<adresse>%s</adresse>\n"
-				+ "%s</person>\n",
-				inStr,
-				inStr2,
-				this.getName(),
-				inStr2,
-				this.getVorname(),
-				inStr2,
-				this.getAdresse(),
-				inStr
-				) ;
-		return ret;
 	}
 }

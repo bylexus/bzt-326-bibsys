@@ -5,8 +5,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
@@ -37,17 +40,19 @@ public class Benutzer implements Serializable  {
 	boolean admin = false;
 	boolean bibMA = false;
 	
-	@Transient
+	
 	Person person;
+	@OneToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "person_id")
+	public Person getPerson() {
+		return person;
+	}
 	
 	
 	@Transient
 	List<Ausleihe> ausgelieheneMedien = new ArrayList<>();
 	
 	
-	public Person getPerson() {
-		return person;
-	}
 	public void setPerson(Person person) {
 		this.person = person;
 	}
