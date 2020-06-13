@@ -26,6 +26,7 @@ public class ProgramManager implements ActionListener{
 	public static ProgramManager getInstance() {
 		if (ProgramManager._inst == null) {
 			ProgramManager._inst = new ProgramManager();
+			DataContainer.getInst();
 		}
 		return ProgramManager._inst;
 	}

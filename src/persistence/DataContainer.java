@@ -71,6 +71,7 @@ public class DataContainer implements Serializable{
 			b.setNachname("Nachname "+i);
 			b.setPasswort(""+i);
 			list.add(b);
+			System.out.println(String.format("Sample user added: %s %s (Login: %s, PW: %s", b.getVorname(), b.getNachname(), b.getLogin(), b.getPasswort()));
 		}
 	}
 	
