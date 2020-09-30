@@ -31,5 +31,10 @@ public class WelcomeScreenViewController extends ViewController<WelcomeScreenVie
 				ProgramManager.getInstance().shutdown();
 			}
 		});
+		
+		view.getBtnNewButton().addActionListener(e -> {
+			MeinPanel p = new MeinPanel();
+			ProgramManager.getInstance().requestMainPanelAdd(p);
+		});
 	}
 }
