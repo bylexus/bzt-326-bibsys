@@ -25,6 +25,11 @@ public class WelcomeScreenViewController extends ViewController<WelcomeScreenVie
 				ProgramManager.getInstance().requestMainPanelAdd(new AusleiheListView());
 			}
 		});
+
+		view.getBtnHello().addActionListener(e -> {
+				ProgramManager.getInstance().requestMainPanelAdd(new HelloView());
+		});
+
 		view.getBtnBeenden().addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {

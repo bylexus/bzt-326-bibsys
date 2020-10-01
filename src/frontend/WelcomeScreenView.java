@@ -1,19 +1,16 @@
 package frontend;
 
 import java.awt.BorderLayout;
+import java.awt.Component;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
+import javax.swing.Box;
+import javax.swing.BoxLayout;
+import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
-import javax.swing.BoxLayout;
-import javax.swing.JButton;
-import javax.swing.GroupLayout;
-import javax.swing.GroupLayout.Alignment;
-import java.awt.FlowLayout;
-import java.awt.Component;
-import javax.swing.Box;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 
 public class WelcomeScreenView extends JPanel {
 	WelcomeScreenViewController ctrl;
@@ -21,6 +18,9 @@ public class WelcomeScreenView extends JPanel {
 	private JLabel timeLabel;
 	private JButton btnAusgelieheneMedien;
 	private JButton btnBeenden;
+
+	private JButton btnHello;
+	
 	private Component verticalGlue;
 	public WelcomeScreenView() {
 		initUI();
@@ -44,6 +44,9 @@ public class WelcomeScreenView extends JPanel {
 		
 		btnAusgelieheneMedien = new JButton("Ausgeliehene Medien");
 		centerPanel.add(btnAusgelieheneMedien);
+
+		btnHello = new JButton("Hello World");
+		centerPanel.add(btnHello);
 		
 		verticalGlue = Box.createVerticalGlue();
 		centerPanel.add(verticalGlue);
@@ -65,6 +68,10 @@ public class WelcomeScreenView extends JPanel {
 
 	public JButton getBtnAusgelieheneMedien() {
 		return btnAusgelieheneMedien;
+	}
+
+	public JButton getBtnHello() {
+		return btnHello;
 	}
 
 	public JButton getBtnBeenden() {
