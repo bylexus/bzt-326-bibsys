@@ -15,7 +15,7 @@ public class AusleiheListView extends JPanel {
 	AusleiheListViewController ctrl;
 	private JButton btnZurueck;
 	private JTable medienList;
-	private String[] columns = {"ID", "Name"};
+	private String[] columns = {"ID", "Name", "Barcode"};
 	
 	public AusleiheListView() {
 		initUI();
