@@ -15,6 +15,11 @@ public class Benutzer implements Serializable{
 	boolean admin = false;
 	boolean bibMA = false;
 	
+	List<Reservation> reservationen = new ArrayList<>();
+	
+	public List<Reservation> getReservationen() {
+		return reservationen;
+	}
 	Person person;
 	
 	public Person getPerson() {

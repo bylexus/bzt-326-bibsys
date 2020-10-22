@@ -1,6 +1,6 @@
 package prototyping;
 
-import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 
 import business.entity.Benutzer;
 import business.entity.Person;
@@ -23,7 +23,7 @@ public class TestPersonManager {
 		PersonManager pm = new PersonManager();
 		
 		// Erstellen einer Person via PersonManager:
-		Person p = pm.createPerson("Schenkel", "Alexander", new SimpleDateFormat("yyyy-MM-dd").parse("1979-04-08"));
+		Person p = pm.createPerson("Schenkel", "Alexander", LocalDate.of(1979, 4, 8));
 		Benutzer b = p.getBenutzer();
 		
 		System.out.println("Person erstellt: " + p.getName() + " " + p.getVorname());

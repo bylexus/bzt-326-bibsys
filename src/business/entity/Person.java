@@ -1,19 +1,23 @@
 package business.entity;
 
 import java.io.Serializable;
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class Person implements Serializable{
 	private static final long serialVersionUID = -8731847388527114130L;
 	
 	String name;
 	String vorname;
-	Date   geburtsdatum;
+	LocalDate   geburtsdatum;
 	String adresse;
 	String plz;
 	String ort;
 	
 	Benutzer benutzer;
+	
 	
 	
 	public Benutzer getBenutzer() {
@@ -22,10 +26,10 @@ public class Person implements Serializable{
 	public void setBenutzer(Benutzer benutzer) {
 		this.benutzer = benutzer;
 	}
-	public Date getGeburtsdatum() {
+	public LocalDate getGeburtsdatum() {
 		return geburtsdatum;
 	}
-	public void setGeburtsdatum(Date geburtsdatum) {
+	public void setGeburtsdatum(LocalDate geburtsdatum) {
 		this.geburtsdatum = geburtsdatum;
 	}
 	public String getName() {
