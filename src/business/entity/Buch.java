@@ -11,6 +11,15 @@ public class Buch extends Medium implements Serializable{
 	private Autor autor;
 	
 	
+	public Buch() {
+		super();
+	}
+	
+	public Buch(int mediennummer) {
+		super(mediennummer);
+	}
+	
+	
 	
 	public String getIsbn() {
 		return isbn;
