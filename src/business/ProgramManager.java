@@ -10,6 +10,9 @@ import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 import javax.swing.JPanel;
 
 import business.entity.Benutzer;
@@ -21,6 +24,7 @@ import persistence.DataContainer;
 public class ProgramManager implements ActionListener {
 	private static ProgramManager _inst;
 	private List<Component> cardItems = new ArrayList<Component>();
+	private EntityManager entityManager;
 
 	private MainWindow mainWindow = null;
 
@@ -35,6 +39,12 @@ public class ProgramManager implements ActionListener {
 	}
 
 	private ProgramManager() {
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory( "BibSys" );
+		entityManager = emf.createEntityManager();
+	}
+	
+	public EntityManager getEntityManager() {
+		return this.entityManager;
 	}
 
 	/**
@@ -103,6 +113,9 @@ public class ProgramManager implements ActionListener {
 
 	public void shutdown() {
 		DataContainer.getInst().shutdown();
+		EntityManagerFactory emf = entityManager.getEntityManagerFactory(); 
+		entityManager.close();
+		emf.close();
 		System.exit(0);
 	}
 

@@ -4,32 +4,25 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Benutzer implements Serializable{
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.Transient;
+
+import org.hibernate.annotations.GenericGenerator;
+
+import business.ISerializeXml;
+
+@Entity
+@Table(name = "BENUTZER")
+public class Benutzer implements Serializable  {
 	private static final long serialVersionUID = -3927525614383424503L;
 
 	private Long id;
-	
-	private String login;
-	private String email;
-	private String passwort;
-	boolean admin = false;
-	boolean bibMA = false;
-	
-	List<Reservation> reservationen = new ArrayList<>();
-	
-	public List<Reservation> getReservationen() {
-		return reservationen;
-	}
-	Person person;
-	
-	public Person getPerson() {
-		return person;
-	}
-	public void setPerson(Person person) {
-		this.person = person;
-	}
-	List<Ausleihe> ausgelieheneMedien = new ArrayList<>();
-	
+	@Id
+	@GeneratedValue(generator="increment")
+	@GenericGenerator(name="increment", strategy = "increment")
 	public Long getId() {
 		return id;
 	}
@@ -37,6 +30,31 @@ public class Benutzer implements Serializable{
 		this.id = id;
 	}
 	
+	
+	private String login;
+	private String email;
+	private String passwort;
+	boolean admin = false;
+	boolean bibMA = false;
+
+	Person person;
+	List<Reservation> reservationen = new ArrayList<>();
+	List<Ausleihe> ausgelieheneMedien = new ArrayList<>();
+	
+	
+	@Transient
+	public List<Reservation> getReservationen() {
+		return reservationen;
+	}
+	
+	@Transient
+	public Person getPerson() {
+		return person;
+	}
+	
+	public void setPerson(Person person) {
+		this.person = person;
+	}
 	
 	public String getLogin() {
 		return login;
@@ -72,10 +90,12 @@ public class Benutzer implements Serializable{
 		this.bibMA = bibMA;
 	}
 	
+	@Transient
 	public List<Ausleihe> getAusgelieheneMedien() {
 		return ausgelieheneMedien;
 	}
+	
 	public void setAusgelieheneMedien(List<Ausleihe> ausgelieheneMedien) {
 		this.ausgelieheneMedien = ausgelieheneMedien;
-	}	
+	}
 }
