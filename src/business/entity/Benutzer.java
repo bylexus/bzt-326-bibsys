@@ -5,8 +5,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
@@ -37,20 +40,35 @@ public class Benutzer implements Serializable  {
 	boolean admin = false;
 	boolean bibMA = false;
 
-	Person person;
-	List<Reservation> reservationen = new ArrayList<>();
-	List<Ausleihe> ausgelieheneMedien = new ArrayList<>();
-	
-	
+	private List<Reservation> reservationen = new ArrayList<>();
 	@Transient
 	public List<Reservation> getReservationen() {
 		return reservationen;
 	}
-	
+	public void setReservationen(List<Reservation> reservationen) {
+		this.reservationen = reservationen;
+	}
+
+
+	private List<Ausleihe> ausgelieheneMedien = new ArrayList<>();
 	@Transient
+	public List<Ausleihe> getAusgelieheneMedien() {
+		return ausgelieheneMedien;
+	}
+	
+	public void setAusgelieheneMedien(List<Ausleihe> ausgelieheneMedien) {
+		this.ausgelieheneMedien = ausgelieheneMedien;
+	}
+	
+	
+	Person person;
+	@OneToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "person_id")
 	public Person getPerson() {
 		return person;
 	}
+	
+	
 	
 	public void setPerson(Person person) {
 		this.person = person;
@@ -90,12 +108,4 @@ public class Benutzer implements Serializable  {
 		this.bibMA = bibMA;
 	}
 	
-	@Transient
-	public List<Ausleihe> getAusgelieheneMedien() {
-		return ausgelieheneMedien;
-	}
-	
-	public void setAusgelieheneMedien(List<Ausleihe> ausgelieheneMedien) {
-		this.ausgelieheneMedien = ausgelieheneMedien;
-	}
 }

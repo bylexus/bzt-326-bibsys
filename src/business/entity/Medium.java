@@ -4,16 +4,39 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import javax.persistence.Transient;
+
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+import org.hibernate.annotations.GenericGenerator;
+
 import persistence.DataContainer;
 
-abstract public class Medium implements Serializable{
+@Entity
+@Table(name = "MEDIUM")
+public class Medium implements Serializable{
 	private static final long serialVersionUID = -7700997192162171490L;
 	
 	private Long id;
+	@Id
+	@GeneratedValue(generator="increment")
+	@GenericGenerator(name="increment", strategy = "increment")
+	public Long getId() {
+		return id;
+	}
+	public void setId(Long id) {
+		this.id = id;
+	}
+	
 	private String titel;
 	private int mediennummer;
-	List<Reservation> reservationen = new ArrayList<>();
-	List<MediumExemplar> exemplare = new ArrayList<MediumExemplar>();
+	private List<Reservation> reservationen = new ArrayList<>();
 	
 	public Medium() {
 	}
@@ -26,6 +49,10 @@ abstract public class Medium implements Serializable{
 		this.createNewExemplar();
 	}
 
+	
+	private List<MediumExemplar> exemplare = new ArrayList<>();
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "medium", orphanRemoval = true)
+	@Fetch(FetchMode.SUBSELECT)
 	public List<MediumExemplar> getExemplare() {
 		return exemplare;
 	}
@@ -56,6 +83,8 @@ abstract public class Medium implements Serializable{
 	 * 2. Es sollen auch alle Exemplare mitgelöscht werden
 	 */
 	public void delete() {
+		//TODO: Umbau für Hibernate
+		/*
 		System.out.println("Medium " + this.mediennummer + " wird gelöscht");
 		System.out.println("Löschen aller Exemplare ...");
 		this.exemplare.forEach(ex -> {
@@ -65,6 +94,7 @@ abstract public class Medium implements Serializable{
 		
 		// Medium von Persistenz löschen:
 		DataContainer.getInst().medienList.remove(this);
+		*/
 	}
 	
 	/**
@@ -77,7 +107,6 @@ abstract public class Medium implements Serializable{
 		if (this.exemplare.contains(ex)) {
 			// darf ich es löschen? Habe ich dann noch mind. 1?
 			if (this.exemplare.size() > 1) {
-				ex.delete();
 				this.exemplare.remove(ex);
 			} else {
 				System.err.println("Oops, nicht möglich: mind. 1 Exemplar muss existieren!");
@@ -86,6 +115,7 @@ abstract public class Medium implements Serializable{
 	}
 
 	
+	@Transient
 	public List<Reservation> getReservationen() {
 		return reservationen;
 	}
@@ -97,12 +127,6 @@ abstract public class Medium implements Serializable{
 		this.mediennummer = mediennummer;
 	}
 	
-	public Long getId() {
-		return id;
-	}
-	public void setId(Long id) {
-		this.id = id;
-	}
 	public String getTitel() {
 		return titel;
 	}
