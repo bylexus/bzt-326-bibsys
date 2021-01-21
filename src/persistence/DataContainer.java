@@ -53,17 +53,19 @@ public class DataContainer implements Serializable{
 		}
 		
 		// Dumping users, for convenience:
+		/*
 		for (Benutzer b : DataContainer._inst.benutzerList) {
 			System.out.println("User: " + b.getLogin() + ", PW: " + b.getPasswort());
 		}
+		*/
 
 		// Dumping Medien, for convenience:
-		for (Medium m : DataContainer._inst.medienList) {
+		/*for (Medium m : DataContainer._inst.medienList) {
 			System.out.println("Medium: " + m.getTitel());
 			for (MediumExemplar ex : m.getExemplare()) {
 				System.out.println("  Exemplar: " + ex.getExemplarNr() + ", Barcode: " + ex.getBarcode());
 			}
-		}
+		}*/
 		return DataContainer._inst;
 	}
 	
