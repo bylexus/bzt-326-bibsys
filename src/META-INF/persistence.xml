@@ -13,9 +13,12 @@
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
         
         <!-- Names the annotated entity class -->
-        <class>orm_playground.Event</class>
         <class>business.entity.Benutzer</class>
         <class>business.entity.Person</class>
+        
+        
+        
+        
         <class>business.entity.Medium</class>
         <class>business.entity.MediumExemplar</class>
         

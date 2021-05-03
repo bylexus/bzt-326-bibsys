@@ -15,17 +15,17 @@ import javax.persistence.Transient;
 
 import org.hibernate.annotations.GenericGenerator;
 
-import business.ISerializeXml;
-
 @Entity
 @Table(name = "BENUTZER")
 public class Benutzer implements Serializable  {
 	private static final long serialVersionUID = -3927525614383424503L;
 
-	private Long id;
+	
 	@Id
 	@GeneratedValue(generator="increment")
 	@GenericGenerator(name="increment", strategy = "increment")
+	private Long id;
+	
 	public Long getId() {
 		return id;
 	}
@@ -40,8 +40,9 @@ public class Benutzer implements Serializable  {
 	boolean admin = false;
 	boolean bibMA = false;
 
-	private List<Reservation> reservationen = new ArrayList<>();
 	@Transient
+	private List<Reservation> reservationen = new ArrayList<>();
+	
 	public List<Reservation> getReservationen() {
 		return reservationen;
 	}
@@ -49,9 +50,9 @@ public class Benutzer implements Serializable  {
 		this.reservationen = reservationen;
 	}
 
-
-	private List<Ausleihe> ausgelieheneMedien = new ArrayList<>();
 	@Transient
+	private List<Ausleihe> ausgelieheneMedien = new ArrayList<>();
+	
 	public List<Ausleihe> getAusgelieheneMedien() {
 		return ausgelieheneMedien;
 	}
@@ -61,9 +62,13 @@ public class Benutzer implements Serializable  {
 	}
 	
 	
-	Person person;
-	@OneToOne(fetch = FetchType.EAGER)
+	
+	
+	
+	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "person_id")
+	Person person;
+	
 	public Person getPerson() {
 		return person;
 	}

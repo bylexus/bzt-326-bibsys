@@ -10,6 +10,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import org.hibernate.annotations.GenericGenerator;
 
@@ -20,18 +21,10 @@ import business.ISerializeXml;
 public class Person implements Serializable, ISerializeXml {
 	private static final long serialVersionUID = -8731847388527114130L;
 
-	private Long id;
-
 	@Id
 	@GeneratedValue(generator = "increment")
 	@GenericGenerator(name = "increment", strategy = "increment")
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
+	private Long id;
 
 	String name;
 	String vorname;
@@ -40,6 +33,14 @@ public class Person implements Serializable, ISerializeXml {
 	String plz;
 	String ort;
 	String email;
+	
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
 
 	public String getEmail() {
 		return email;
@@ -49,9 +50,15 @@ public class Person implements Serializable, ISerializeXml {
 		this.email = email;
 	}
 
-	Benutzer benutzer;
+	
 
-	@OneToOne(mappedBy = "person", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+   @OneToOne(
+		   mappedBy = "person", 
+		   cascade = CascadeType.ALL, 
+		   orphanRemoval = true, 
+		   fetch = FetchType.EAGER)
+	Benutzer benutzer;
+	
 	public Benutzer getBenutzer() {
 		return benutzer;
 	}
