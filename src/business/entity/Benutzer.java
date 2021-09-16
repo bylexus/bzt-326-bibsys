@@ -10,14 +10,20 @@ public class Benutzer implements Serializable{
 	private Long id;
 	
 	private String login;
-	private String vorname;
-	private String nachname;
 	private String email;
 	private String passwort;
 	boolean admin = false;
 	boolean bibMA = false;
 	
-	List<Medium> ausgelieheneMedien = new ArrayList<>();
+	Person person;
+	
+	public Person getPerson() {
+		return person;
+	}
+	public void setPerson(Person person) {
+		this.person = person;
+	}
+	List<Ausleihe> ausgelieheneMedien = new ArrayList<>();
 	
 	public Long getId() {
 		return id;
@@ -32,18 +38,6 @@ public class Benutzer implements Serializable{
 	}
 	public void setLogin(String login) {
 		this.login = login;
-	}
-	public String getVorname() {
-		return vorname;
-	}
-	public void setVorname(String vorname) {
-		this.vorname = vorname;
-	}
-	public String getNachname() {
-		return nachname;
-	}
-	public void setNachname(String nachname) {
-		this.nachname = nachname;
 	}
 	public String getEmail() {
 		return email;
@@ -73,10 +67,10 @@ public class Benutzer implements Serializable{
 		this.bibMA = bibMA;
 	}
 	
-	public List<Medium> getAusgelieheneMedien() {
+	public List<Ausleihe> getAusgelieheneMedien() {
 		return ausgelieheneMedien;
 	}
-	public void setAusgelieheneMedien(List<Medium> ausgelieheneMedien) {
+	public void setAusgelieheneMedien(List<Ausleihe> ausgelieheneMedien) {
 		this.ausgelieheneMedien = ausgelieheneMedien;
 	}	
 }
