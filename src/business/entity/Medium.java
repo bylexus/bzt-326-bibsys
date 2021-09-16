@@ -10,8 +10,14 @@ abstract public class Medium implements Serializable{
 	private Long id;
 	private String titel;
 	private int mediennummer;
+	List<Reservation> reservationen = new ArrayList<>();
 	
 	
+
+	
+	public List<Reservation> getReservationen() {
+		return reservationen;
+	}
 	
 	public int getMediennummer() {
 		return mediennummer;
