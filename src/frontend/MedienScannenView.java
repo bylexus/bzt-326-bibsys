@@ -27,18 +27,6 @@ public class MedienScannenView extends JPanel {
 		initUI();
 		ctrl = new MedienScannenViewController(this);
 		
-		textArea = new JTextArea();
-		springLayout.putConstraint(SpringLayout.NORTH, textArea, 18, SpringLayout.SOUTH, lblBarcode);
-		springLayout.putConstraint(SpringLayout.WEST, textArea, 10, SpringLayout.WEST, this);
-		springLayout.putConstraint(SpringLayout.SOUTH, textArea, -5, SpringLayout.NORTH, btnDruckenfertig);
-		springLayout.putConstraint(SpringLayout.EAST, textArea, -10, SpringLayout.EAST, this);
-		textArea.setRows(10);
-		JScrollPane scrollPane = new JScrollPane(textArea);
-		springLayout.putConstraint(SpringLayout.NORTH, scrollPane, 10, SpringLayout.SOUTH, barcodeField);
-		springLayout.putConstraint(SpringLayout.WEST, scrollPane, 10, SpringLayout.WEST, this);
-		springLayout.putConstraint(SpringLayout.SOUTH, scrollPane, -10, SpringLayout.NORTH, btnDruckenfertig);
-		springLayout.putConstraint(SpringLayout.EAST, scrollPane, -10, SpringLayout.EAST, this);
-		add(scrollPane);
 		
 		
 	}
@@ -85,5 +73,18 @@ public class MedienScannenView extends JPanel {
 		springLayout.putConstraint(SpringLayout.SOUTH, btnDruckenfertig, -10, SpringLayout.SOUTH, this);
 		springLayout.putConstraint(SpringLayout.EAST, btnDruckenfertig, -10, SpringLayout.EAST, this);
 		add(btnDruckenfertig);
+
+		textArea = new JTextArea();
+		springLayout.putConstraint(SpringLayout.NORTH, textArea, 18, SpringLayout.SOUTH, lblBarcode);
+		springLayout.putConstraint(SpringLayout.WEST, textArea, 10, SpringLayout.WEST, this);
+		springLayout.putConstraint(SpringLayout.SOUTH, textArea, -5, SpringLayout.NORTH, btnDruckenfertig);
+		springLayout.putConstraint(SpringLayout.EAST, textArea, -10, SpringLayout.EAST, this);
+		textArea.setRows(10);
+		JScrollPane scrollPane = new JScrollPane(textArea);
+		springLayout.putConstraint(SpringLayout.NORTH, scrollPane, 10, SpringLayout.SOUTH, barcodeField);
+		springLayout.putConstraint(SpringLayout.WEST, scrollPane, 10, SpringLayout.WEST, this);
+		springLayout.putConstraint(SpringLayout.SOUTH, scrollPane, -10, SpringLayout.NORTH, btnDruckenfertig);
+		springLayout.putConstraint(SpringLayout.EAST, scrollPane, -10, SpringLayout.EAST, this);
+		add(scrollPane);
 	}
 }
