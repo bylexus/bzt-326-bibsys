@@ -11,6 +11,9 @@ abstract public class Medium implements Serializable{
 	private String titel;
 	private int mediennummer;
 	List<Reservation> reservationen = new ArrayList<>();
+
+	private Standort standort;
+
 	
 	
 
@@ -44,5 +47,14 @@ abstract public class Medium implements Serializable{
 	}
 	public void setTitel(String titel) {
 		this.titel = titel;
+	}
+
+
+	public Standort getStandort() {
+		return this.standort;
+	}
+
+	public void setStandort(Standort s) {
+		this.standort = s;
 	}
 }
