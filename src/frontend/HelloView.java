@@ -24,11 +24,12 @@ public class HelloView extends JPanel {
 	}
 
 	protected void initUI() {
+		// Wir machen das Layout selber (ohne Swing):
 		this.setLayout(null);
 
 		JToolBar toolBar = new JToolBar();
 		toolBar.setBounds(0, 0, 500, 40);
-		add(toolBar);
+		this.add(toolBar);
 
 		btnZurueck = new JButton("zurück");
 		toolBar.add(btnZurueck);
@@ -36,20 +37,14 @@ public class HelloView extends JPanel {
 		JLabel lblNewLabel = new JLabel("Hello!");
 		toolBar.add(lblNewLabel);
 
-		JPanel innerPanel = new JPanel();
-		innerPanel.setBounds(0, 40, 500, 500);
-		innerPanel.setLayout(null);
-
 		nameField = new JTextField();
-		nameField.setBounds(0, 0, 300, 40);
+		nameField.setBounds(0, 40, 300, 40);
+
 		btnAnzeige = new JButton("click mich!");
-		btnAnzeige.setBounds(305, 0, 100, 40);
+		btnAnzeige.setBounds(305, 40, 100, 40);
 
-		innerPanel.add(nameField);
-		innerPanel.add(btnAnzeige);
-
-		this.add(innerPanel);
-
+		this.add(nameField);
+		this.add(btnAnzeige);
 	}
 
 	public JTextField getNameField() {

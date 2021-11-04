@@ -11,9 +11,10 @@ public class MediumStandortExample {
 
 		Standort s1 = new Standort();
 		s1.setName("Standort 1");
-
-
 		s1.addMedium(m1);
+
+		// Traversierbarkeit:
+		var hopefullyTrue = m1.getStandort() == s1; // sollte true ergeben
 
 		System.out.println("Standort Medium 1: " + m1.getStandort().getName());
 	}
