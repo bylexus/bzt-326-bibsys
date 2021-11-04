@@ -35,7 +35,7 @@ public class Assoziationen {
 		MediumMM mm = new MediumMM();
 		Autor a = new Autor();
 		a.setNachname("King"); a.setVorname("Stephen");
-		Buch buch = mm.createBuch("Mein Buch", "123-456-789", a);
+		Buch buch = mm.createBuch(54321, "Mein Buch", "123-456-789", a);
 		
 		// Navigation demonstrieren:
 		System.out.println("Buch " + buch.getTitel() + " hat Autor " + buch.getAutor().getNachname());

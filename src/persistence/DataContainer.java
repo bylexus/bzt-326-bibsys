@@ -97,19 +97,16 @@ public class DataContainer implements Serializable{
 	}
 	
 	private void generateSampleBuecher(List<Medium> list) {
-		MediumMM mm = new MediumMM();
 		for (int i = 1; i < 5; i++) {
-			Buch b = new Buch();
+			Buch b = new Buch(i);
 			b.setId(this.getNextId());
-			b.setMediennummer(i);
 			Autor a = new Autor();
 			a.setNachname("Autor "+i);
 			b.setTitel("Buch "+i);
 			b.setIsbn("345-123-"+i+i+i);
 			b.setAutor(a);
-			mm.createNewExemplar(b);
-			mm.createNewExemplar(b);
-			mm.createNewExemplar(b);
+			b.createNewExemplar();
+			b.createNewExemplar();
 			list.add(b);
 		}
 	}

@@ -41,4 +41,8 @@ public class MediumExemplar implements Serializable{
 	public void setMedium(Medium medium) {
 		this.medium = medium;
 	}
+	
+	public void delete() {
+		System.out.println("  Exemplar " + this.barcode + " wird gelöscht ...");
+	}
 }
