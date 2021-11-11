@@ -20,19 +20,29 @@ public class MediumMM extends ModelManager<Medium> {
 			this.getDataContainer().medienList.add(entity);
 		}
 	}
-	
+
+
+
+
+
+
 	public MediumExemplar findFreeMediumExemplarByBarcode(String barcode) {
 		for (Medium m : this.getDataContainer().medienList) {
-			for (MediumExemplar ex : m.getExemplare()) {
-				if (ex.getBarcode().equals(barcode) && ex.istAusleihbar()) {
-					return ex;
-				}
+
+			MediumExemplar ex = m.findAusleibaresExemplar(barcode);
+			if (ex != null) {
+				return ex;
 			}
 		}
 		return null;
 	}
-	
-	
+
+
+
+
+
+
+
 	public Ausleihe createAusleihe(MediumExemplar ex, Benutzer b) {
 		if (ex.istAusleihbar() != true) {
 			return null;
@@ -42,7 +52,7 @@ public class MediumMM extends ModelManager<Medium> {
 		c.setTime(now);
 		Ausleihe a = new Ausleihe();
 		a.setAusgeliehenAm(now);
-		
+
 		c.add(Calendar.DAY_OF_MONTH, 30);
 		a.setZurueckAm(c.getTime());
 		a.setExemplar(ex);
@@ -51,10 +61,11 @@ public class MediumMM extends ModelManager<Medium> {
 		ex.setAusleihe(a);
 		return a;
 	}
-	
+
 	/**
 	 * Facade-Klasse, erstellt eine Reservation eines Mediums zu einem Benutzer,
 	 * stellt sicher, dass die Objektmodelle stimmen
+	 * 
 	 * @param m
 	 * @param b
 	 * @return
@@ -64,26 +75,28 @@ public class MediumMM extends ModelManager<Medium> {
 		r.reserviertAm = LocalDate.now();
 		r.medium = m;
 		r.benutzer = b;
-		
-		// Objektmodell auf Medium und Benutzer richtig stellen: Reservation wird nur aufgenommen,
+
+		// Objektmodell auf Medium und Benutzer richtig stellen: Reservation wird nur
+		// aufgenommen,
 		// wenn dieses Medium vom selben Benutzer nicht schon reserviert wurde:
 		// Prüfen, ob Medium schon von Benutzer reserviert ist:
 		if (m.getReservationen().stream().filter(res -> res.benutzer == b).toArray().length == 0) {
 			m.getReservationen().add(r);
 		}
-		
-		// Objektmodell auf Medium und Benutzer richtig stellen: Reservation wird nur aufgenommen,
+
+		// Objektmodell auf Medium und Benutzer richtig stellen: Reservation wird nur
+		// aufgenommen,
 		// wenn dieses Medium vom selben Benutzer nicht schon reserviert wurde:
 		// Prüfen, ob Benutzer Medium schon ausgeliehen hat:
 		if (b.getReservationen().stream().filter(res -> res.medium == m).toArray().length == 0) {
 			b.getReservationen().add(r);
 		}
-		
+
 		return r;
 	}
-	
+
 	/**
-	 * Facade-Methode, um ein Buch zu erstellen. Verknüpft einen Autoren-Datensatz, 
+	 * Facade-Methode, um ein Buch zu erstellen. Verknüpft einen Autoren-Datensatz,
 	 * und erstellt gleich ein Exemplar.
 	 */
 	public Buch createBuch(int nr, String titel, String isbn, Autor autor) {
@@ -92,11 +105,12 @@ public class MediumMM extends ModelManager<Medium> {
 		b.setIsbn(isbn);
 
 		b.createNewExemplar();
-		
-		// Objektmodell-Beziehung Medium (n) - Autor (1) auf beiden Seiten korrekt herstellen
+
+		// Objektmodell-Beziehung Medium (n) - Autor (1) auf beiden Seiten korrekt
+		// herstellen
 		b.setAutor(autor);
 		autor.getMedien().add(b);
-		
+
 		// in DataContainer persistieren:
 		this.store(b);
 		return b;

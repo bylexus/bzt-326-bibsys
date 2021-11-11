@@ -120,4 +120,22 @@ abstract public class Medium implements Serializable{
 	public void setStandort(Standort s) {
 		this.standort = s;
 	}
+
+	public MediumExemplar findExemplarByBarcode(String code) {
+		for (MediumExemplar ex : this.getExemplare()) {
+			if (ex.getBarcode().equals(code)) {
+				return ex;
+			}
+		}
+		return null;
+	}
+
+	public MediumExemplar findAusleibaresExemplar(String barcode) {
+		for (MediumExemplar ex : this.getExemplare()) {
+			if (ex.getBarcode().equals(barcode) && ex.istAusleihbar()) {
+				return ex;
+			}
+		}
+		return null;
+	}
 }
