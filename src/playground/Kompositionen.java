@@ -29,7 +29,7 @@ public class Kompositionen {
 		m.getExemplare().forEach(ex -> System.out.println("Ex: "+ex.getExemplarNr()+", Barcode: " + ex.getBarcode()));
 		
 		// noch ein paar Exemplare mehr, bitte:
-		MediumExemplar me1 = m.getExemplare().get(0); // das erste
+		MediumExemplar me1 = m.getExemplare().get(0); // das erste wurde automatisch erstellt
 		MediumExemplar me2 = m.createNewExemplar();
 		MediumExemplar me3 = m.createNewExemplar();
 		

@@ -57,8 +57,15 @@ public class PersonManager extends ModelManager<Person> {
 
 	@Override
 	public void store(Person entity) {
+		
 		if (!this.getDataContainer().personList.contains(entity)) {
 			this.getDataContainer().personList.add(entity);
+		}
+
+		if (entity.getBenutzer() == null) {
+			BenutzerMM benutzerManager = new BenutzerMM();
+			Benutzer b = benutzerManager.createBenutzer(entity);
+			entity.setBenutzer(b);	
 		}
 	}
 }

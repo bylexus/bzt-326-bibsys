@@ -37,12 +37,25 @@ public class MediumMM extends ModelManager<Medium> {
 		return null;
 	}
 
-
-
-
-
-
-
+	/**
+	 * Facade-Methode, welche das Verbinden eines Mediums mit einem Medien-Exemplar
+	 * vollzieht: Die Methode "versteckt" die Komplexität beim Zuweisen
+	 * der 1:n-Beziehung und sorgt für ein konsistentes Objektmodell: 
+	 */
+	public void linkMediumExemplar(Medium m, MediumExemplar me) {
+		// Aufräumen der alten Beziehung:
+		if (me.getMedium() != null) {
+			me.getMedium().getExemplare().remove(me);
+		}
+		
+		// Neu zuweisen:
+		if (m.getExemplare().contains(me) != true) {
+			m.getExemplare().add(me);
+			me.setMedium(m);
+		}
+	}
+	
+	
 	public Ausleihe createAusleihe(MediumExemplar ex, Benutzer b) {
 		if (ex.istAusleihbar() != true) {
 			return null;

@@ -92,6 +92,7 @@ public class DataContainer implements Serializable{
 		for (int i = 1; i < 5; i++) {
 			Person p = pm.createPerson("Name", "Vorname", null);
 			Benutzer b = p.getBenutzer();
+			b.setLogin("benutzer"+i);
 			System.out.println("Person erstellt: " + p.getName() + " " + p.getVorname() + "(" + b.getLogin() + ":" + b.getPasswort()+")");
 		}
 	}
