@@ -14,6 +14,7 @@ public class HibernateOrmDemo {
 		EntityManager em = pm.getEntityManager();
 		
 		// Laden von Entitäten - hier findet ORM statt!
+		// ACHTUNG! Das ist KEIN SQL! --> dies ist eine Hibernate-spezifische Query Language:
 		List<Benutzer> benutzerliste = pm.getEntityManager().createQuery("select b from Benutzer b",Benutzer.class).getResultList();
 		
 		// Transaktion starten: Sobald wir Entitäten speichern wollen, ist das notwendig:
@@ -43,7 +44,6 @@ public class HibernateOrmDemo {
 		
 		// Transaktion abschliessen:
 		em.getTransaction().commit();
-		
 		
 		pm.shutdown();
 	}

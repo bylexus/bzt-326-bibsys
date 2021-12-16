@@ -13,10 +13,7 @@
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
         
         <!-- Names the annotated entity class -->
-        <class>orm_playground.Event</class>
         <class>business.entity.Benutzer</class>
-        
-        
         
         <properties>
             <property name="javax.persistence.jdbc.driver"

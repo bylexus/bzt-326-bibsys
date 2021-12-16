@@ -12,8 +12,6 @@ import javax.persistence.Transient;
 
 import org.hibernate.annotations.GenericGenerator;
 
-import business.ISerializeXml;
-
 @Entity
 @Table(name = "BENUTZER")
 public class Benutzer implements Serializable  {
