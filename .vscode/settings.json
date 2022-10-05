@@ -1,0 +1,6 @@
+{
+	"java.project.referencedLibraries": [
+		"lib/**/*.jar",
+		"jgoodies-looks-2.5.3.jar"
+	]
+}
