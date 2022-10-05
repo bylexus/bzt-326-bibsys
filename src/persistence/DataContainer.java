@@ -14,14 +14,17 @@ import business.entity.Autor;
 import business.entity.Benutzer;
 import business.entity.Buch;
 import business.entity.Medium;
+import business.entity.MediumExemplar;
+import business.entity.Person;
 
 public class DataContainer implements Serializable{
-	private static final long serialVersionUID = 962047350284408762L;
+	private static final long serialVersionUID = 962047350284408763L;
 	
 	private long lastGlobalId = 0;
 	
 	public List<Benutzer> benutzerList = new ArrayList<>();
 	public List<Medium> medienList = new ArrayList<>();
+	public List<Person> personList = new ArrayList<>();
 	
 	private static DataContainer _inst;
 	
@@ -48,12 +51,34 @@ public class DataContainer implements Serializable{
 			DataContainer._inst = new DataContainer();
 			DataContainer._inst.generateExampleData();
 		}
+		
+		// Dumping users, for convenience:
+		for (Benutzer b : DataContainer._inst.benutzerList) {
+			System.out.println("User: " + b.getLogin() + ", PW: " + b.getPasswort());
+		}
+
+		// Dumping Medien, for convenience:
+		for (Medium m : DataContainer._inst.medienList) {
+			System.out.println("Medium: " + m.getTitel());
+			for (MediumExemplar ex : m.getExemplare()) {
+				System.out.println("  Exemplar: " + ex.getExemplarNr() + ", Barcode: " + ex.getBarcode());
+			}
+		}
 		return DataContainer._inst;
 	}
 	
 	private void generateExampleData() {
-		if (benutzerList.isEmpty()) {
-			generateSampleBenutzer(benutzerList);
+		if (personList == null) {
+			personList = new ArrayList<>();
+		}
+		if (benutzerList == null) {
+			benutzerList = new ArrayList<>();
+		}
+		if (medienList == null) {
+			medienList = new ArrayList<>();
+		}
+		if (personList.isEmpty()) {
+			generateSamplePersonen(personList);
 		}
 		if (medienList.isEmpty()) {
 			generateSampleBuecher(medienList);
@@ -62,47 +87,50 @@ public class DataContainer implements Serializable{
 		
 	}
 	
-	private void generateSampleBenutzer(List<Benutzer> list) {
+	private void generateSamplePersonen(List<Person> list) {
+		PersonManager pm = new PersonManager();
 		for (int i = 1; i < 5; i++) {
-			Benutzer b = new Benutzer();
-			b.setId(this.getNextId());
-			b.setLogin("benutzer"+i);
-			b.setVorname("Vorname "+i);
-			b.setNachname("Nachname "+i);
-			b.setPasswort(""+i);
-			list.add(b);
-			System.out.println(String.format("Sample user added: %s %s (Login: %s, PW: %s", b.getVorname(), b.getNachname(), b.getLogin(), b.getPasswort()));
+			Person p = pm.createPerson("Name", "Vorname", null);
+			Benutzer b = p.getBenutzer();
+			System.out.println("Person erstellt: " + p.getName() + " " + p.getVorname() + "(" + b.getLogin() + ":" + b.getPasswort()+")");
 		}
 	}
 	
 	private void generateSampleBuecher(List<Medium> list) {
+		MediumMM mm = new MediumMM();
 		for (int i = 1; i < 5; i++) {
 			Buch b = new Buch();
 			b.setId(this.getNextId());
+			b.setMediennummer(i);
 			Autor a = new Autor();
 			a.setNachname("Autor "+i);
 			b.setTitel("Buch "+i);
 			b.setIsbn("345-123-"+i+i+i);
 			b.setAutor(a);
+			mm.createNewExemplar(b);
+			mm.createNewExemplar(b);
+			mm.createNewExemplar(b);
 			list.add(b);
 		}
 	}
 	
 	
 	private void generateSampleAusleihen(Benutzer b, List<Medium> medien) {
+		MediumMM mm = new MediumMM();
 		Medium m;
+		MediumExemplar ex;
 		if (b.getAusgelieheneMedien().isEmpty()) {
 			m = medien.get(0);
-			m.setAusgeliehenVon(b);
-			b.getAusgelieheneMedien().add(m);
+			ex = m.getExemplare().get(0);
+			mm.createAusleihe(ex, b);
 			
 			m = medien.get(1);
-			m.setAusgeliehenVon(b);
-			b.getAusgelieheneMedien().add(m);
+			ex = m.getExemplare().get(0);
+			mm.createAusleihe(ex, b);
 		}
 	}
 	
-	private long getNextId() {
+	public long getNextId() {
 		this.lastGlobalId++;
 		return this.lastGlobalId;
 	}
