@@ -1,5 +1,6 @@
 package persistence;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 import business.entity.Benutzer;
@@ -14,7 +15,7 @@ public class PersonManager extends ModelManager<Person> {
 	 * 
 	 * Zurück erhält man ein Person-Objekt mit dazugehörigem Benutzer.
 	 */
-	public Person createPerson(String name, String vorname, Date geburtsdatum) {
+	public Person createPerson(String name, String vorname, LocalDate geburtsdatum) {
 		BenutzerMM benutzerManager = new BenutzerMM();
 		Person p = new Person();
 		p.setName(name);

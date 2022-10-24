@@ -14,42 +14,39 @@ import javax.swing.JToolBar;
 public class HelloView extends JPanel {
 	HelloViewController ctrl;
 	private JButton btnZurueck;
-	
+
 	private JTextField nameField;
 	private JButton btnAnzeige;
-	
+
 	public HelloView() {
 		initUI();
 		ctrl = new HelloViewController(this);
 	}
-	
+
 	protected void initUI() {
-		setLayout(new BorderLayout(0, 0));
+		// Wir machen das Layout selber (ohne Swing):
+		this.setLayout(null);
+
 		JToolBar toolBar = new JToolBar();
-		add(toolBar, BorderLayout.NORTH);
+		toolBar.setBounds(0, 0, 500, 40);
+		this.add(toolBar);
+
 		btnZurueck = new JButton("zurück");
 		toolBar.add(btnZurueck);
-		
-		Component horizontalStrut = Box.createHorizontalStrut(20);
-		toolBar.add(horizontalStrut);
-		
+
 		JLabel lblNewLabel = new JLabel("Hello!");
 		toolBar.add(lblNewLabel);
-		
-		
-		JPanel innerPanel = new JPanel();
-		
+
 		nameField = new JTextField();
-		nameField.setPreferredSize(new Dimension(100, 30));
+		nameField.setBounds(0, 40, 300, 40);
+
 		btnAnzeige = new JButton("click mich!");
-		
-		innerPanel.add(nameField);
-		innerPanel.add(btnAnzeige);
-		
-		this.add(innerPanel, BorderLayout.CENTER);
-		
+		btnAnzeige.setBounds(305, 40, 100, 40);
+
+		this.add(nameField);
+		this.add(btnAnzeige);
 	}
-	
+
 	public JTextField getNameField() {
 		return nameField;
 	}
