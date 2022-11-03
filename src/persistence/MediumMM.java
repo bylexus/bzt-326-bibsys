@@ -32,15 +32,6 @@ public class MediumMM extends ModelManager<Medium> {
 		return null;
 	}
 	
-	public MediumExemplar createNewExemplar(Medium m) {
-		int nr = m.getExemplare().size() + 1;
-		MediumExemplar ex = new MediumExemplar();
-		ex.setExemplarNr(nr);
-		ex.setMedium(m);
-		ex.setBarcode("code-" + m.getMediennummer() + "-" + nr);
-		m.getExemplare().add(ex);
-		return ex;
-	}
 	
 	public Ausleihe createAusleihe(MediumExemplar ex, Benutzer b) {
 		if (ex.istAusleihbar() != true) {
@@ -95,12 +86,12 @@ public class MediumMM extends ModelManager<Medium> {
 	 * Facade-Methode, um ein Buch zu erstellen. Verknüpft einen Autoren-Datensatz, 
 	 * und erstellt gleich ein Exemplar.
 	 */
-	public Buch createBuch(String titel, String isbn, Autor autor) {
-		Buch b = new Buch();
+	public Buch createBuch(int nr, String titel, String isbn, Autor autor) {
+		Buch b = new Buch(nr);
 		b.setTitel(titel);
 		b.setIsbn(isbn);
 
-		this.createNewExemplar(b);
+		b.createNewExemplar();
 		
 		// Objektmodell-Beziehung Medium (n) - Autor (1) auf beiden Seiten korrekt herstellen
 		b.setAutor(autor);
