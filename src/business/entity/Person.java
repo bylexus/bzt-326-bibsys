@@ -15,9 +15,15 @@ public class Person implements Serializable{
 	String adresse;
 	String plz;
 	String ort;
-	
+	String email;
 	Benutzer benutzer;
 	
+	public String getEmail() {
+		return email;
+	}
+	public void setEmail(String email) {
+		this.email = email;
+	}
 	
 	
 	public Benutzer getBenutzer() {

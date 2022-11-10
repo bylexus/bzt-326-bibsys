@@ -16,6 +16,7 @@ abstract public class Medium implements Serializable{
 
 	private Standort standort;
 
+	List<MediumExemplar> exemplare = new ArrayList<MediumExemplar>();
 	
 	public Medium() {
 	}
@@ -26,6 +27,13 @@ abstract public class Medium implements Serializable{
 
 		/** Hier erstellen wir gleich ein erstes Exemplar: */
 		this.createNewExemplar();
+	}
+
+	public List<MediumExemplar> getExemplare() {
+		return exemplare;
+	}
+	public void setExemplare(List<MediumExemplar> exemplare) {
+		this.exemplare = exemplare;
 	}
 	
 	/** 
@@ -91,14 +99,7 @@ abstract public class Medium implements Serializable{
 	public void setMediennummer(int mediennummer) {
 		this.mediennummer = mediennummer;
 	}
-	List<MediumExemplar> exemplare = new ArrayList<MediumExemplar>();
 	
-	public List<MediumExemplar> getExemplare() {
-		return exemplare;
-	}
-	public void setExemplare(List<MediumExemplar> exemplare) {
-		this.exemplare = exemplare;
-	}
 	public Long getId() {
 		return id;
 	}
@@ -119,5 +120,23 @@ abstract public class Medium implements Serializable{
 
 	public void setStandort(Standort s) {
 		this.standort = s;
+	}
+
+	public MediumExemplar findExemplarByBarcode(String code) {
+		for (MediumExemplar ex : this.getExemplare()) {
+			if (ex.getBarcode().equals(code)) {
+				return ex;
+			}
+		}
+		return null;
+	}
+
+	public MediumExemplar findAusleibaresExemplar(String barcode) {
+		for (MediumExemplar ex : this.getExemplare()) {
+			if (ex.getBarcode().equals(barcode) && ex.istAusleihbar()) {
+				return ex;
+			}
+		}
+		return null;
 	}
 }

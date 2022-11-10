@@ -43,7 +43,12 @@ public class MedienScannenViewController extends ViewController<MedienScannenVie
 				protected String doInBackground() throws Exception {
 					String barcode = view.barcodeField.getText();
 					publish("Starte scan für Barcode: " + barcode + "\n");
+
 					MediumExemplar ex = mediumManager.findFreeMediumExemplarByBarcode(barcode);
+
+
+
+
 					Medium m;
 					Thread.sleep(500);
 					if (ex == null) {
